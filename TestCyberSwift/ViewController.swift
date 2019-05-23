@@ -32,6 +32,8 @@ class ViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func testAuthButtonTapped(_ sender: UIButton) {
+        /// API `auth.authorize`
+        //  1. run after get `sign` websocket secret key
         FacadeService().testAuthorize()
     }
     

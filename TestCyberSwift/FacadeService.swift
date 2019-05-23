@@ -38,15 +38,16 @@ struct FacadeService {
         let userNickNameValue   =   Config.testUserAccount.nickName
         let userActiveKeyValue  =   Config.testUserAccount.activeKey
         
-        RestAPIManager.instance.authorize(userNickName: userNickNameValue, userActiveKey: userActiveKeyValue, completion: { (authAuthorize, errorAPI) in
-            guard errorAPI == nil else {
-                Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-                return
-            }
-            
-            Logger.log(message: authAuthorize!.permission, event: .debug)
-            
-//            self.testGetPushHistoryFresh()
+        RestAPIManager.instance.authorize(userNickName: userNickNameValue,
+                                          userActiveKey: userActiveKeyValue,
+                                          responseHandling: { response in
+                                            Logger.log(message: "API `auth.authorize` permission: \(response.permission)", event: .debug)
+                                            
+                                            /// Test API `push.historyFresh`
+                                            // self.testGetPushHistoryFresh()
+        },
+                                          errorHandling: { errorAPI in
+                                            Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
         })
     }
     
