@@ -72,7 +72,11 @@ class ViewController: UIViewController {
 
         
         /// Contract `gls.publish` action `updatemssg`
-        EOSService().testUpdatePostMessage()
+//        EOSService().testUpdatePostMessage()
+
+        
+        /// Contract `gls.publish` action `deletemssg`
+        EOSService().testDeletePostMessage()
 
         
 //        self.messageVote()

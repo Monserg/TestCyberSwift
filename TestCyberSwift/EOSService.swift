@@ -50,7 +50,7 @@ struct EOSService {
                                         }
         },
                                        errorHandling:       { (errorAPI) in
-                                        Logger.log(message: "error.caseInfo.message", event: .error)
+                                        Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
 
@@ -70,29 +70,24 @@ struct EOSService {
                                                 Logger.log(message: "response: \(response)", event: .debug)
         },
                                               errorHandling: { errorAPI in
-                                                Logger.log(message: "error.caseInfo.message", event: .error)
+                                                Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
     
     
     /// Action `deletemssg`
     func testDeletePostMessage() {
-        let postAuthor: String          =   Config.testUserAccount.nickName
-        let postPermlink: String        =   "title2-2019-05-23t12-30-55"
+        let postAuthor: String      =   Config.testUserAccount.nickName
+        let postPermlink: String    =   "title2-2019-05-23t12-30-55"
         
-//        RestAPIManager.instance.deleteMessage(author: postAuthor,
-//                                              permlink: postPermlink,
-//                                              refBlockNum: postRefBlockNum,
-//                                              completion:     { (response, error) in
-//                                                guard error == nil else {
-//                                                    print(error!.caseInfo.message)
-//                                                    return
-//                                                }
-//                                                
-//                                                print(response!.statusCode)
-//                                                print(response!.success)
-//                                                print(response!.body!)
-//        })
+        RestAPIManager.instance.deleteMessage(author:               postAuthor,
+                                              permlink:             postPermlink,
+                                              responseHandling:     { response in
+                                                Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                              errorHandling:        { errorAPI in
+                                                Logger.log(message: errorAPI.caseInfo.message, event: .error)
+        })
     }
 
     
