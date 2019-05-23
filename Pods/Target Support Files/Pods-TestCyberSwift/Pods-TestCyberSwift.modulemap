@@ -1,0 +1,6 @@
+framework module Pods_TestCyberSwift {
+  umbrella header "Pods-TestCyberSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,99 @@
+PODS:
+  - BigInt (3.1.0):
+    - SipHash (~> 1.2)
+  - Checksum (1.0.0)
+  - CryptoSwift (1.0.0)
+  - CyberSwift (1.0.8):
+    - Checksum
+    - CryptoSwift
+    - eosswift (~> 1.5)
+    - GoloCrypto
+    - Localize-Swift (~> 2.0)
+    - Locksmith
+    - RxBlocking
+    - RxCocoa
+    - RxStarscream
+    - RxSwift
+    - secp256k1.swift
+    - Starscream (~> 3.0)
+    - SwiftTheme
+  - eosswift (1.5):
+    - BigInt (~> 3.1.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - GoloCrypto (1.0.6)
+  - Localize-Swift (2.0.0)
+  - Locksmith (4.0.0)
+  - RxAtomic (4.4.2)
+  - RxBlocking (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxCocoa (4.4.2):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxStarscream (0.10):
+    - RxCocoa (~> 4.3)
+    - RxSwift (~> 4.3)
+    - Starscream (~> 3)
+  - RxSwift (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
+  - secp256k1.swift (0.1.4)
+  - SipHash (1.2.2)
+  - Starscream (3.1.0)
+  - SwiftTheme (0.4.4)
+
+DEPENDENCIES:
+  - CyberSwift (from `https://github.com/GolosChain/cyberSwift.git`)
+  - eosswift (~> 1.5)
+  - RxBlocking
+  - RxSwift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BigInt
+    - Checksum
+    - CryptoSwift
+    - eosswift
+    - GoloCrypto
+    - Localize-Swift
+    - Locksmith
+    - RxAtomic
+    - RxBlocking
+    - RxCocoa
+    - RxStarscream
+    - RxSwift
+    - secp256k1.swift
+    - SipHash
+    - Starscream
+    - SwiftTheme
+
+EXTERNAL SOURCES:
+  CyberSwift:
+    :git: https://github.com/GolosChain/cyberSwift.git
+
+CHECKOUT OPTIONS:
+  CyberSwift:
+    :commit: ca57b5f83b4ff6827880e7f21b32c38efe01bd28
+    :git: https://github.com/GolosChain/cyberSwift.git
+
+SPEC CHECKSUMS:
+  BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
+  Checksum: f1aa56a27dea5db4006c819e2e129ee6aeb1d9af
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  CyberSwift: f63ca1b6c60302397e606a23c7a5b57a6ccfba35
+  eosswift: 1b20d506c340725f6eb8192dda0f98330aa6535a
+  GoloCrypto: 3f60e824b57ca657be702fb2cf4bd1f7a379257a
+  Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
+  Locksmith: e9bebbaaa4cee3c511bc358a44f843c3fe00e21f
+  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
+  RxBlocking: e96fdda1473d81332a6ed2cface935dc2167a122
+  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
+  RxStarscream: aa79e742c87e9bcdff218a1ebb59638f5174589e
+  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
+  secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
+  SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
+  SwiftTheme: a381f983da92153908b7a9eeb961b18b6d94d614
+
+PODFILE CHECKSUM: 48814f293bf3ba9dd0180ee2f2db800cd479a2aa
+
+COCOAPODS: 1.7.0
