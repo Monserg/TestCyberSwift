@@ -20,6 +20,7 @@
 		B1C3F884223F99CF005711EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C3F882223F99CF005711EF /* Main.storyboard */; };
 		B1C3F886223F99D1005711EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1C3F885223F99D1005711EF /* Assets.xcassets */; };
 		B1C3F889223F99D1005711EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C3F887223F99D1005711EF /* LaunchScreen.storyboard */; };
+		B1D73CE422969178005363D1 /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = B1D73CE322969178005363D1 /* ReadMe */; };
 		B1E549AF22660D1500827910 /* EOSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E549AE22660D1500827910 /* EOSService.swift */; };
 		B1E86FD22260C88100D9860C /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E86FCF2260C88100D9860C /* PublicKey.swift */; };
 		B1E86FD32260C88100D9860C /* PasswordKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E86FD02260C88100D9860C /* PasswordKey.swift */; };
@@ -52,6 +53,7 @@
 		B1C3F885223F99D1005711EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1C3F888223F99D1005711EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1C3F88A223F99D1005711EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1D73CE322969178005363D1 /* ReadMe */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReadMe; sourceTree = "<group>"; };
 		B1E549AE22660D1500827910 /* EOSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSService.swift; sourceTree = "<group>"; };
 		B1E86FCF2260C88100D9860C /* PublicKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
 		B1E86FD02260C88100D9860C /* PasswordKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordKey.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		B1C3F872223F99CF005711EF = {
 			isa = PBXGroup;
 			children = (
+				B1D73CE322969178005363D1 /* ReadMe */,
 				B110086B2242214C0052F0DB /* TestPlayground.playground */,
 				B1C3F87D223F99CF005711EF /* TestCyberSwift */,
 				B1C3F87C223F99CF005711EF /* Products */,
@@ -209,6 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D73CE422969178005363D1 /* ReadMe in Resources */,
 				B1C3F889223F99D1005711EF /* LaunchScreen.storyboard in Resources */,
 				B1C3F886223F99D1005711EF /* Assets.xcassets in Resources */,
 				B1C3F884223F99CF005711EF /* Main.storyboard in Resources */,
