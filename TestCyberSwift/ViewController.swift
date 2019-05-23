@@ -53,7 +53,9 @@ class ViewController: UIViewController {
 //        FacadeService().testGetFeed()
 //        FacadeService().testGetPost()
 //        FacadeService().testGetOnlineNotifyHistoryFresh()
-//        FacadeService().testRecordPostView()
+        
+        /// Test API `meta.recordPostView`
+        FacadeService().testRecordPostView(authorPermlink: "")
         
         // EOS
 //        self.messageVote()

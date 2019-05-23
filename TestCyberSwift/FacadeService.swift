@@ -25,7 +25,9 @@ struct FacadeService {
         })
     }
     
-    // Sign webSocket secret key
+    
+    /// API `auth.authorize`
+    //  1. run after get `sign` websocket secret key
     func testAuthorize() {
         if KeychainManager.deleteData(forUserNickName: Config.currentUserNickNameKey, withKey: Config.currentUserNickNameKey) {
             if KeychainManager.deleteData(forUserNickName: Config.currentUserPublicActiveKey, withKey: Config.currentUserPublicActiveKey) {
@@ -47,8 +49,9 @@ struct FacadeService {
 //            self.testGetPushHistoryFresh()
         })
     }
+    
 
-    // Test API `content.getFeed`
+    /// Test API `content.getFeed`
     func testGetFeed() {
         let userID: String                  =   Config.currentUser.nickName ?? Config.testUserAccount.nickName
         let paginationSequenceKey: String?  =   nil //"58098388-437f-43f1-980c-8e363b5859a9|20"
@@ -73,8 +76,9 @@ struct FacadeService {
                                             Logger.log(message: "Response: \n\t\(feed!.items!)", event: .debug)
         })
     }
+    
 
-    // Test API `content.getPost`
+    /// Test API `content.getPost`
     func testGetPost() {
         // 1. run API 'content.getFeed`
         // 2. get `userId` = "tst1brydfvew", `permlink` = "dzhordzh-karlin", `refBlockNum` = 17004 from response.item.contentId
@@ -91,11 +95,12 @@ struct FacadeService {
                                             Logger.log(message: "Response: \n\t\(post!)", event: .debug)
         })
     }
+    
 
-    // Test API `content.getComments` by user
-    // 1. run API 'content.getPost`
-    // 2. get `userId`, `permlink`, `refBlockNum` from response.item.contentId
-    // 3. run current API
+    /// Test API `content.getComments` by user
+    //  1. run API 'content.getPost`
+    //  2. get `userId`, `permlink`, `refBlockNum` from response.item.contentId
+    //  3. run current API
     func testGetUserCommentsByUser() {
         RestAPIManager.instance.loadUserComments(nickName:      "d5gqchmbgrdj",
                                                  completion:    { (comments, errorAPI) in
@@ -108,8 +113,9 @@ struct FacadeService {
         })
     }
     
-    // Test API `content.getComments` by post
-    // First run `FacadeService().testGetFeed()`
+    
+    /// Test API `content.getComments` by post
+    //  1. run `FacadeService().testGetFeed()`
     func testGetUserCommentsByPost() {
         let paginationSequenceKey: String? = nil
         
@@ -127,7 +133,8 @@ struct FacadeService {
         })
     }
     
-    // Test API `push.historyFresh`
+    
+    /// Test API `push.historyFresh`
     func testGetPushHistoryFresh() {
         RestAPIManager.instance.getPushHistoryFresh(completion: { (history, errorAPI) in
             guard errorAPI == nil else {
@@ -139,7 +146,8 @@ struct FacadeService {
         })
     }
 
-    // Test API `options.get`
+    
+    /// Test API `options.get`
     func testGetOptions() {
         RestAPIManager.instance.getOptions(responseHandling: { (response) in
             Logger.log(message: "response: \n\t\(response)", event: .debug)
@@ -149,7 +157,8 @@ struct FacadeService {
         })
     }
 
-    // Test API basic `options.set`
+    
+    /// Test API basic `options.set`
     func testSetBasicOptions() {
         RestAPIManager.instance.setBasicOptions(language:           "ua",
                                                 nsfwContent:        .alwaysAlert,
@@ -161,8 +170,9 @@ struct FacadeService {
                                                     Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
         })
     }
+    
 
-    // Test API push/notify `options.set`
+    /// Test API push/notify `options.set`
     func testSetOptions() {
         let noticeOptions = RequestParameterAPI.NoticeOptions(vote:                 true,
                                                               flag:                 true,
@@ -189,7 +199,8 @@ struct FacadeService {
         })
     }
     
-    // Test API `onlineNotify.historyFresh`
+    
+    /// Test API `onlineNotify.historyFresh`
     func testGetOnlineNotifyHistoryFresh() {
         RestAPIManager.instance.getOnlineNotifyHistoryFresh(completion: { (response, errorAPI) in
             guard errorAPI == nil else {
@@ -201,29 +212,18 @@ struct FacadeService {
         })
     }
     
-    // Test API `notify.markAsRead`
+    
+    /// Test API `notify.markAsRead`
     func testMarkNotifiesAsRead() {
-//        RestAPIManager.instance.mark
-//        
-//        
-//        
-//        getOnlineNotifyHistoryFresh(completion: { (response, errorAPI) in
-//            guard errorAPI == nil else {
-//                Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-//                return
-//            }
-//            
-//            Logger.log(message: "response: \n\t\(response!)", event: .debug)
-//        })
+
     }
 
-    // Test API `meta.recordPostView`
-    // 1. get feed list
-    // 2. select any post
-    // 3. get author permlink value
-    func testRecordPostView() {
-        let authorPermlink: String = "title2-2019-05-20t10-35-36"
-        
+    
+    /// Test API `meta.recordPostView`
+    //  1. get feed list
+    //  2. select any post
+    //  3. get author permlink value
+    func testRecordPostView(authorPermlink: String) {
         RestAPIManager.instance.recordPostView(permlink:            authorPermlink,
                                                responseHandling:    { response in
                                                 Logger.log(message: "response: \n\t\(response)", event: .debug)
