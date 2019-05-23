@@ -55,6 +55,47 @@ struct EOSService {
     }
 
     
+    /// Action `updatemssg`
+    func testUpdatePostMessage() {
+        let messageAuthor: String           =   Config.testUserAccount.nickName
+        let messagePermlink: String         =   "title2-2019-05-23t12-30-55"
+        let messageParentData: ParentData?  =   nil
+        let messageBody: String             =   "Updating body message for current \(messageParentData == nil ? "Post" : "Comment")..."
+        
+        RestAPIManager.instance.updateMessage(author: messageAuthor,
+                                              permlink: messagePermlink,
+                                              message: messageBody,
+                                              parentData: messageParentData,
+                                              responseHandling: { response in
+                                                Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                              errorHandling: { errorAPI in
+                                                Logger.log(message: "error.caseInfo.message", event: .error)
+        })
+    }
+    
+    
+    /// Action `deletemssg`
+    func testDeletePostMessage() {
+        let postAuthor: String          =   Config.testUserAccount.nickName
+        let postPermlink: String        =   "title2-2019-05-23t12-30-55"
+        
+//        RestAPIManager.instance.deleteMessage(author: postAuthor,
+//                                              permlink: postPermlink,
+//                                              refBlockNum: postRefBlockNum,
+//                                              completion:     { (response, error) in
+//                                                guard error == nil else {
+//                                                    print(error!.caseInfo.message)
+//                                                    return
+//                                                }
+//                                                
+//                                                print(response!.statusCode)
+//                                                print(response!.success)
+//                                                print(response!.body!)
+//        })
+    }
+
+    
     /// Action `reblog`
     func testReblog(messageAuthor:          String,
                     messagePermlink:        String,

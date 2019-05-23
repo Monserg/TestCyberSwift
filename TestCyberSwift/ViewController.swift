@@ -68,12 +68,14 @@ class ViewController: UIViewController {
         
         // EOS
         /// Contract `gls.publish` action `createmssg`
-        EOSService().testCreatePostMessage()
+//        EOSService().testCreatePostMessage()
+
+        
+        /// Contract `gls.publish` action `updatemssg`
+        EOSService().testUpdatePostMessage()
 
         
 //        self.messageVote()
-//        self.deletePostMessage()
-//        self.updatePostMessage()
 
         
 //        EOSService().testReblog(messageAuthor:          "tst2jejxypdx",
@@ -153,58 +155,6 @@ extension ViewController {
                                             print(response!.statusCode)
                                             print(response!.success)
                                             print(response!.body!)
-        })
-    }
-
-
-    /// EOS: contract `gls.publish`, action `deletemssg`
-    func deletePostMessage() {
-        let postAuthor: String          =   "tst1dmkhfimy"
-        let postPermlink: String        =   "test-post-title-3-2019-04-02t11-51-41"
-        let postRefBlockNum: UInt64     =   925970
-
-        Config.isPublicTestnet = true
-        
-        RestAPIManager.instance.deleteMessage(author: postAuthor,
-                                              permlink: postPermlink,
-                                              refBlockNum: postRefBlockNum,
-                                              completion:     { (response, error) in
-                                                guard error == nil else {
-                                                    print(error!.caseInfo.message)
-                                                    return
-                                                }
-                                                
-                                                print(response!.statusCode)
-                                                print(response!.success)
-                                                print(response!.body!)
-        })
-    }
-    
-    
-    /// EOS: contract `gls.publish`, action `updatemssg`
-    func updatePostMessage() {
-        let messageAuthor: String           =   "tst1dmkhfimy"
-        let messagePermlink: String         =   "test-post-title-79-2019-04-02t12-24-28"
-        let messageRefBlockNum: UInt64      =   926626
-        let messageParentData: ParentData?  =   nil
-        let messageBody: String             =   "Updating body message for current \(messageParentData == nil ? "Post" : "Comment")..."
-        
-        Config.isPublicTestnet = true
-        
-        RestAPIManager.instance.updateMessage(author:           messageAuthor,
-                                              permlink:         messagePermlink,
-                                              message:          messageBody,
-                                              parentData:       messageParentData,
-                                              refBlockNum:      messageRefBlockNum,
-                                              completion:       { (response, error) in
-                                                guard error == nil else {
-                                                    print(error!.caseInfo.message)
-                                                    return
-                                                }
-                                                
-                                                print(response!.statusCode)
-                                                print(response!.success)
-                                                print(response!.body!)
         })
     }
 }

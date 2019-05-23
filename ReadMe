@@ -10,4 +10,6 @@
     6.1. https://github.com/GolosChain/golos.contracts/blob/develop/golos.publication/golos.publication.abi
     6.2. refblocknum убрали, recId, и tokenProp теперь short
     6.3. test is successfull!!!
-7.
+7.  test contract `golos.publication` action `updatemssg`
+8.  test contract `golos.publication` action `deletemssg`
+
