@@ -42,8 +42,15 @@ class ViewController: UIViewController {
 //        EOSService().testPostingImage()
         
 
-        // FACADE
-//        FacadeService().testGetProfile(nickName: "tst2jejxypdx")
+        // FACADE-SERVICE
+        /// Test API `content.getFeed`
+//        FacadeService().testGetFeed()
+
+        
+        /// Test API `content.getProfile`
+//        FacadeService().testGetProfile(nickName: Config.testUserAccount.nickName)
+        
+        
 //        FacadeService().testGetUserCommentsByUser()
 //        FacadeService().testGetUserCommentsByPost()
         
@@ -52,19 +59,22 @@ class ViewController: UIViewController {
 //        FacadeService().testSetBasicOptions()
 //        FacadeService().testSetPushOptions()
         
-//        FacadeService().testGetFeed()
 //        FacadeService().testGetPost()
 //        FacadeService().testGetOnlineNotifyHistoryFresh()
         
         /// Test API `meta.recordPostView`
-        FacadeService().testRecordPostView(authorPermlink: "")
+//        FacadeService().testRecordPostView(authorPermlink: "")
+        
         
         // EOS
+        /// Contract `gls.publish` action `createmssg`
+        EOSService().testCreatePostMessage()
+
+        
 //        self.messageVote()
 //        self.deletePostMessage()
 //        self.updatePostMessage()
 
-//        EOSService().testCreatePostMessage()
         
 //        EOSService().testReblog(messageAuthor:          "tst2jejxypdx",
 //                                messagePermlink:        "title2-2019-04-26t07-43-58",
@@ -80,7 +90,7 @@ class ViewController: UIViewController {
 //        EOSService().testReblog()
         
         
-        // REGISTRATION
+        // REGISTRATION-SERVICE
 //        RegistrationService().testGetState(phone: "+79602806441")
 //        RegistrationService().testFirstStep(phone: "+79602806441")
 //        RegistrationService().resendSmsCode(phone: "+79602806440")
@@ -103,7 +113,6 @@ extension ViewController {
     }
     
     
-    
 //    func testGenerateSecret() {
 //        RestAPIManager.instance.generateSecret(completion: { (generatedSecret, errorAPI) in
 //            guard errorAPI == nil else {
@@ -114,7 +123,6 @@ extension ViewController {
 //            Logger.log(message: generatedSecret!.secret, event: .debug)
 //        })
 //    }
-    
     
     
     
@@ -147,8 +155,6 @@ extension ViewController {
                                             print(response!.body!)
         })
     }
-    
-    
 
 
     /// EOS: contract `gls.publish`, action `deletemssg`

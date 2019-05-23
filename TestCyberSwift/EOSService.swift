@@ -42,10 +42,11 @@ struct EOSService {
                                         if let data = response.body?.processed.action_traces.first?.act.data, let messageID = data["message_id"], let json = messageID.jsonValue as? [String: Any] {
                                             Logger.log(message: "json = \(json)", event: .debug)
                                             
-                                            self.testReblog(messageAuthor:          "tst2jejxypdx",
-                                                            messagePermlink:        "title2-2019-05-20t10-35-36",
-                                                            messageRefBlockNum:     893085,
-                                                            messageRebloger:        "tst2jejxypdx")
+                                            // Test action `reblog`
+//                                            self.testReblog(messageAuthor:          "tst2jejxypdx",
+//                                                            messagePermlink:        "title2-2019-05-20t10-35-36",
+//                                                            messageRefBlockNum:     893085,
+//                                                            messageRebloger:        "tst2jejxypdx")
                                         }
         },
                                        errorHandling:       { (errorAPI) in
@@ -53,15 +54,14 @@ struct EOSService {
         })
     }
 
+    
     /// Action `reblog`
     func testReblog(messageAuthor:          String,
                     messagePermlink:        String,
-                    messageRefBlockNum:     UInt64,
                     messageRebloger:        String) {
         RestAPIManager.instance.reblog(author:              messageAuthor,
                                        rebloger:            messageRebloger,
                                        permlink:            messagePermlink,
-                                       refBlockNum:         messageRefBlockNum,
                                        responseHandling:    { (response) in
                                         print(response)
         },

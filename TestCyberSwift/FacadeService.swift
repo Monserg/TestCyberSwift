@@ -10,22 +10,6 @@ import CyberSwift
 import Foundation
 
 struct FacadeService {
-    // Test API `content.getProfile`
-    func testGetProfile(nickName: String) {
-//        let result = self.deleteAllKeys()
-        
-        RestAPIManager.instance.getProfile(nickName:        nickName,
-                                           completion:      { (userProfile, errorAPI) in
-                                            guard errorAPI == nil else {
-                                                Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-                                                return
-                                            }
-                                            
-                                            Logger.log(message: "userProfile: \n\t\(userProfile!)", event: .debug)
-        })
-    }
-    
-    
     /// API `auth.authorize`
     //  1. run after get `sign` websocket secret key
     func testAuthorize() {
@@ -98,6 +82,22 @@ struct FacadeService {
     }
     
 
+    /// Test API `content.getProfile`
+    func testGetProfile(nickName: String) {
+//        let result = self.deleteAllKeys()
+        
+        RestAPIManager.instance.getProfile(nickName:        nickName,
+                                           completion:      { (userProfile, errorAPI) in
+                                            guard errorAPI == nil else {
+                                                Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
+                                                return
+                                            }
+                                            
+                                            Logger.log(message: "userProfile: \n\t\(userProfile!)", event: .debug)
+        })
+    }
+
+    
     /// Test API `content.getComments` by user
     //  1. run API 'content.getPost`
     //  2. get `userId`, `permlink`, `refBlockNum` from response.item.contentId

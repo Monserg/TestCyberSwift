@@ -1,3 +1,13 @@
 23.05.2019:
-1. проверил 'sign'
-2. check 'auth'
+1.  test `sign`
+2.  test API `auth.authorize`
+3.  test API `content.getFeed`:
+    3.1. fix error with `content.tags`
+    3.2. fix error with `contentId.refBlockNum`
+4.  update lib in Commun
+5.  test API `content.getProfile`
+6.  modify contract `golos.publication` action `createmssg`:
+    6.1. https://github.com/GolosChain/golos.contracts/blob/develop/golos.publication/golos.publication.abi
+    6.2. refblocknum убрали, recId, и tokenProp теперь short
+    6.3. test is successfull!!!
+7.
