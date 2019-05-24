@@ -61,7 +61,7 @@ extension Reactive where Base: EOSManager {
         
         // Prepare data
         let voteArgs: Encodable = (voteType == .unvote) ?
-            EOSTransaction.UnvoteArgs.init(voterValue: userNickName,
+            EOSTransaction.UnvoteArgs.init(voterValue:          userNickName,
                                            authorValue:         author,
                                            permlinkValue:       permlink)
             :
