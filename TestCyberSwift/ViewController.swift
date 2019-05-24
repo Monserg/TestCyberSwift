@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         
         // EOS
         /// Contract `gls.publish` action `createmssg`
-//        EOSService().testCreatePostMessage()
+        EOSService().testCreatePostMessage()
 
         
         /// Contract `gls.publish` action `updatemssg`
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
 
         
         /// Contract `gls.publish` action `upvote`
-        EOSService().testMessage(voteActionType: .unvote)
+//        EOSService().testMessage(voteActionType: .unvote)
         
         
         

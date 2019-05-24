@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/WebSocketManager.swift"
-            timestampString = "580373277.480262"
+            timestampString = "580373801.95307"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "240"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/FacadeService.swift"
-            timestampString = "580373277.480356"
+            timestampString = "580374673.867173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "28"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/FacadeService.swift"
-            timestampString = "580373277.480827"
+            timestampString = "580374673.867659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/FacadeService.swift"
-            timestampString = "580373277.481181"
+            timestampString = "580374673.8679219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "61"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/FacadeService.swift"
-            timestampString = "580373277.481513"
+            timestampString = "580374673.868171"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/FacadeService.swift"
-            timestampString = "580373277.4817621"
+            timestampString = "580374673.868434"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/FacadeService.swift"
-            timestampString = "580373277.482008"
+            timestampString = "580374673.868699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
@@ -122,27 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/EOSService.swift"
-            timestampString = "580373277.482255"
+            timestampString = "580374673.868966"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "testCreatePostMessage()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TestCyberSwift/EOSService.swift"
-            timestampString = "580373277.48256"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "testCreatePostMessage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/RestAPIManager.swift"
-            timestampString = "580373277.482824"
+            timestampString = "580374673.8696131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "870"
@@ -170,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/RestAPIManager.swift"
-            timestampString = "580373277.482879"
+            timestampString = "580374673.869671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "913"
@@ -186,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/RestAPIManager.swift"
-            timestampString = "580373277.482928"
+            timestampString = "580374673.86972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "843"
@@ -202,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/RestAPIManager.swift"
-            timestampString = "580373277.482976"
+            timestampString = "580374673.869769"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "840"
@@ -218,28 +202,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/EOSService.swift"
-            timestampString = "580373277.483024"
+            timestampString = "580374673.869822"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "testMessage(voteActionType:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TestCyberSwift/EOSService.swift"
-            timestampString = "580373277.48329"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "testMessage(voteActionType:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "testMessage(voteActionType:author:permlink:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -250,7 +218,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/EOSManager.swift"
-            timestampString = "580373277.483552"
+            timestampString = "580374673.870397"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "354"
@@ -266,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/EOSManager.swift"
-            timestampString = "580373277.4836119"
+            timestampString = "580374673.870454"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "362"
@@ -282,7 +250,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/CyberSwift/CyberSwift/Managers/EOSManager.swift"
-            timestampString = "580373277.4836659"
+            timestampString = "580374673.870504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "365"
@@ -314,12 +282,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TestCyberSwift/ViewController.swift"
-            timestampString = "580373277.483767"
+            timestampString = "580374673.870593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "testButtonTapped(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestCyberSwift/EOSService.swift"
+            timestampString = "580374673.870645"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "testMessage(voteActionType:author:permlink:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestCyberSwift/EOSService.swift"
+            timestampString = "580374673.871056"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "testCreatePostMessage()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

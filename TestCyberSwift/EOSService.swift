@@ -8,6 +8,7 @@
 
 import CyberSwift
 import Foundation
+import eosswift
 
 struct EOSService {
     //  MARK: - Contract `gls.social`
@@ -39,8 +40,14 @@ struct EOSService {
                                        responseHandling:    { (response) in
                                         Logger.log(message: "response: \(response)", event: .debug)
                                         
-                                        if let data = response.body?.processed.action_traces.first?.act.data, let messageID = data["message_id"], let json = messageID.jsonValue as? [String: Any] {
+                                        if let data = response.body?.processed.action_traces.first?.act.data, let messageID = data["message_id"], let json = messageID.jsonValue as? [String: AnyJSONType] {
                                             Logger.log(message: "json = \(json)", event: .debug)
+                                            
+                                            // Test action `upvote`
+                                            if let permlinkData = json["permlink"], let permlinkValue = permlinkData.jsonValue as? String, let authorData = json["author"], let authorValue = authorData.jsonValue as? String {
+                                                self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
+                                            }
+                                            
                                             
                                             // Test action `reblog`
 //                                            self.testReblog(messageAuthor:          "tst2jejxypdx",
@@ -92,17 +99,19 @@ struct EOSService {
 
     
     /// Actions `upvote`, `downvote`, `unvote`
-    func testMessage(voteActionType: VoteActionType) {
+    func testMessage(voteActionType: VoteActionType, author: String, permlink: String) {
         // 1. run 'testAuthorize()'
         // 2. run 'testCreatePostMessage()' -> get `permlink`
-        let messageAuthor: String       =   Config.testUserAccount.nickName
-        let messagePermlink: String     =   "title2-2019-05-24t06-45-37"
-        
         RestAPIManager.instance.message(voteActionType:     voteActionType,
-                                        author:             messageAuthor,
-                                        permlink:           messagePermlink,
+                                        author:             author,
+                                        permlink:           permlink,
                                         responseHandling:   { response in
                                             Logger.log(message: "response: \(response)", event: .debug)
+                                            
+                                            // Test action `unvote`
+                                            if voteActionType == .upvote {
+                                                self.testMessage(voteActionType: .unvote, author: author, permlink: permlink)
+                                            }
         },
                                         errorHandling:      { errorAPI in
                                             Logger.log(message: errorAPI.caseInfo.message, event: .error)
