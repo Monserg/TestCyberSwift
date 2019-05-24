@@ -91,6 +91,25 @@ struct EOSService {
     }
 
     
+    /// Actions `upvote`, `downvote`, `unvote`
+    func testMessage(voteActionType: VoteActionType) {
+        // 1. run 'testAuthorize()'
+        // 2. run 'testCreatePostMessage()' -> get `permlink`
+        let messageAuthor: String       =   Config.testUserAccount.nickName
+        let messagePermlink: String     =   "title2-2019-05-24t06-45-37"
+        
+        RestAPIManager.instance.message(voteActionType:     voteActionType,
+                                        author:             messageAuthor,
+                                        permlink:           messagePermlink,
+                                        responseHandling:   { response in
+                                            Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                        errorHandling:      { errorAPI in
+                                            Logger.log(message: errorAPI.caseInfo.message, event: .error)
+        })
+    }
+    
+    
     /// Action `reblog`
     func testReblog(messageAuthor:          String,
                     messagePermlink:        String,
@@ -115,17 +134,13 @@ struct EOSService {
 
         Config.isPublicTestnet  =   true
         
-        RestAPIManager.instance.reg(witness:        witness,
-                                    url:            url,
-                                    completion:     { (response, error) in
-                                        guard error == nil else {
-                                            print(error!.caseInfo.message)
-                                            return
-                                        }
-                                        
-                                        print(response!.statusCode)
-                                        print(response!.success)
-                                        print(response!.body!)
+        RestAPIManager.instance.reg(witness:                witness,
+                                    url:                    url,
+                                    responseHandling:       { response in
+                                        Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                    errorHandling:          { errorAPI in
+                                        Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
 
@@ -136,17 +151,13 @@ struct EOSService {
         
         Config.isPublicTestnet  =   true
 
-        RestAPIManager.instance.vote(witness:       witness,
-                                     voter:         voter,
-                                     completion:    { (response, error) in
-                                                guard error == nil else {
-                                                    print(error!.caseInfo.message)
-                                                    return
-                                                }
-                                                
-                                                print(response!.statusCode)
-                                                print(response!.success)
-                                                print(response!.body!)
+        RestAPIManager.instance.vote(witness:               witness,
+                                     voter:                 voter,
+                                     responseHandling:      { response in
+                                        Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                     errorHandling:         { errorAPI in
+                                        Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
     
@@ -157,17 +168,13 @@ struct EOSService {
         
         Config.isPublicTestnet  =   true
         
-        RestAPIManager.instance.unvote(witness:       witness,
-                                       voter:         voter,
-                                       completion:    { (response, error) in
-                                        guard error == nil else {
-                                            print(error!.caseInfo.message)
-                                            return
-                                        }
-                                        
-                                        print(response!.statusCode)
-                                        print(response!.success)
-                                        print(response!.body!)
+        RestAPIManager.instance.unvote(witness:             witness,
+                                       voter:               voter,
+                                       responseHandling:    { response in
+                                        Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                       errorHandling:       { errorAPI in
+                                        Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
     
@@ -177,16 +184,12 @@ struct EOSService {
         
         Config.isPublicTestnet  =   true
         
-        RestAPIManager.instance.unreg(witness:      witness,
-                                      completion:   { (response, error) in
-                                        guard error == nil else {
-                                            print(error!.caseInfo.message)
-                                            return
-                                        }
-                                        
-                                        print(response!.statusCode)
-                                        print(response!.success)
-                                        print(response!.body!)
+        RestAPIManager.instance.unreg(witness:              witness,
+                                      responseHandling:     { response in
+                                        Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                      errorHandling:        { errorAPI in
+                                        Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
 }

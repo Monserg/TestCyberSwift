@@ -76,11 +76,13 @@ class ViewController: UIViewController {
 
         
         /// Contract `gls.publish` action `deletemssg`
-        EOSService().testDeletePostMessage()
+//        EOSService().testDeletePostMessage()
 
         
-//        self.messageVote()
-
+        /// Contract `gls.publish` action `upvote`
+        EOSService().testMessage(voteActionType: .unvote)
+        
+        
         
 //        EOSService().testReblog(messageAuthor:          "tst2jejxypdx",
 //                                messagePermlink:        "title2-2019-04-26t07-43-58",
@@ -129,36 +131,4 @@ extension ViewController {
 //            Logger.log(message: generatedSecret!.secret, event: .debug)
 //        })
 //    }
-    
-    
-    
-    
-    
-    /// EOS: contract `gls.publish`, actions `upvote`, `downvote`, `unvote`
-    func messageVote() {
-        // First run 'testAuthorize()'
-        // Second run 'getFeed()'
-        let voteType: VoteType          =   .upvote
-        let messagePermlink: String     =   "title2-2019-05-20t10-35-36"
-        let messageAuthor: String       =   "tst2jejxypdx"
-        let refBlockNum: UInt64         =   893085
-        
-//        Config.isPublicTestnet = true
-        
-        RestAPIManager.instance.message(voteType:        voteType,
-                                        author:          messageAuthor,
-                                        permlink:        messagePermlink,
-                                        weight:          voteType == .unvote ? 0 : 10_000,
-                                        refBlockNum:     refBlockNum,
-                                        completion:      { (response, error) in
-                                            guard error == nil else {
-                                                print(error!.caseInfo.message)
-                                                return
-                                            }
-                                            
-                                            print(response!.statusCode)
-                                            print(response!.success)
-                                            print(response!.body!)
-        })
-    }
 }
