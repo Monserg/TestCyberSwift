@@ -18,4 +18,4 @@
 1. test action `upvote`
 2. test action `downvote`
 3. test action `unvote`
-4.
+4. test action `reblog`

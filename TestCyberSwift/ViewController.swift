@@ -51,6 +51,15 @@ class ViewController: UIViewController {
 //        FacadeService().testGetProfile(nickName: Config.testUserAccount.nickName)
         
         
+        /// Test action `reblog`
+        EOSService().testMessageReblog(author:      "tst2dqowtufr",
+                                       permlink:    "hestiafightswithandromacheagainstperses",
+                                       rebloger:    Config.currentUser.nickName ?? "",
+                                       title:       "Reblog title 1",
+                                       body:        "Reblog body 1")
+        
+        
+        
 //        FacadeService().testGetUserCommentsByUser()
 //        FacadeService().testGetUserCommentsByPost()
         
@@ -68,7 +77,7 @@ class ViewController: UIViewController {
         
         // EOS
         /// Contract `gls.publish` action `createmssg`
-        EOSService().testCreatePostMessage()
+//        EOSService().testCreatePostMessage()
 
         
         /// Contract `gls.publish` action `updatemssg`

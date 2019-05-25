@@ -70,7 +70,6 @@ struct FacadeService {
         // 3. run current API
         RestAPIManager.instance.loadPost(userID:        "d5gqchmbgrdj",
                                          permlink:      "athenafightswithiphigeniaagainstdione",
-                                         refBlockNum:   17512,
                                          completion:    { (post, errorAPI) in
                                             guard errorAPI == nil else {
                                                 Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
@@ -122,7 +121,6 @@ struct FacadeService {
         
         RestAPIManager.instance.loadPostComments(nickName:                  "d5gqchmbgrdj",
                                                  permlink:                  "athenafightswithiphigeniaagainstdione",
-                                                 refBlockNum:               17512,
                                                  paginationSequenceKey:     paginationSequenceKey,
                                                  completion:                { (comments, errorAPI) in
                                                     guard errorAPI == nil else {

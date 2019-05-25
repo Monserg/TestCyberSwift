@@ -43,11 +43,20 @@ struct EOSService {
                                         if let data = response.body?.processed.action_traces.first?.act.data, let messageID = data["message_id"], let json = messageID.jsonValue as? [String: AnyJSONType] {
                                             Logger.log(message: "json = \(json)", event: .debug)
                                             
-                                            // Test action `upvote`
                                             if let permlinkData = json["permlink"], let permlinkValue = permlinkData.jsonValue as? String, let authorData = json["author"], let authorValue = authorData.jsonValue as? String {
-                                                self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
+                                                // Test action `upvote`
+//                                                self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
+                                                
+                                                // Test action `reblog`
+                                                self.testMessageReblog(author:      authorValue,
+                                                                       permlink:    permlinkValue,
+                                                                       rebloger:    "tst1kfzmmlqi",
+                                                                       title:       "Reblog title #1",
+                                                                       body:        "Reblog body message #1")
                                             }
+
                                             
+
                                             
                                             // Test action `reblog`
 //                                            self.testReblog(messageAuthor:          "tst2jejxypdx",
@@ -120,17 +129,23 @@ struct EOSService {
     
     
     /// Action `reblog`
-    func testReblog(messageAuthor:          String,
-                    messagePermlink:        String,
-                    messageRebloger:        String) {
-        RestAPIManager.instance.reblog(author:              messageAuthor,
-                                       rebloger:            messageRebloger,
-                                       permlink:            messagePermlink,
-                                       responseHandling:    { (response) in
-                                        print(response)
+    // 1. run 'testAuthorize()'
+    // 2. run 'testCreatePostMessage()' -> get `permlink`, `author`
+    func testMessageReblog(author:      String,
+                           permlink:    String,
+                           rebloger:    String,
+                           title:       String,
+                           body:        String) {
+        RestAPIManager.instance.reblogMessage(author:               author,
+                                              rebloger:             rebloger,
+                                              permlink:             permlink,
+                                              headermssg:           title,
+                                              bodymssg:             body,
+                                              responseHandling:     { response in
+                                                Logger.log(message: "response: \(response)", event: .debug)
         },
-                                       errorHandling:       { (errorAPI) in
-                                        print(errorAPI)
+                                              errorHandling:        { errorAPI in
+                                                Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
 

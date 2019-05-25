@@ -144,10 +144,10 @@ public struct ResponseAPIContentGetProfileSubscriber: Decodable {
 // MARK: -
 public struct ResponseAPIContentGetProfileContact: Decodable {
     // MARK: - In work API `content.getProfile`
-    public let facebook: String
-    public let telegram: String
-    public let whatsApp: String
-    public let weChat: String
+    public let facebook: String?
+    public let telegram: String?
+    public let whatsApp: String?
+    public let weChat: String?
 }
 
 
@@ -224,7 +224,7 @@ public struct ResponseAPIContentGetPostContentMetadata: Decodable {
 public struct ResponseAPIContentGetPostContentEmbed: Decodable {
     // MARK: - In work API `content.getFeed`
     public let _id: String
-    public let id: String
+    public let id: String?
     public let type: String
     public let result: ResponseAPIContentGetPostContentEmbedResult
 }
@@ -461,7 +461,7 @@ public struct ResponseAPIContentGetCommentContentId: Decodable {
     // MARK: - In work API `content.getComments`
     public let userId: String
     public let permlink: String
-    public let refBlockNum: UInt64
+    public let refBlockNum: UInt64?
 }
 
 
@@ -502,7 +502,7 @@ public struct ResponseAPIContentGetCommentParentCommentContentId: Decodable {
     // MARK: - In work API `content.getComments`
     public let userId: String
     public let permlink: String
-    public let refBlockNum: UInt64
+    public let refBlockNum: UInt64?
 }
 
 
@@ -769,7 +769,7 @@ public struct ResponseAPIOnlineNotificationDataComunity: Decodable {
 
 // MARK: -
 public struct ResponseAPIOnlineNotificationDataActor: Decodable {
-    public let id: String
+    public let id: String?
     public let avatarUrl: String?
 }
 
@@ -785,7 +785,7 @@ public struct ResponseAPIOnlineNotificationDataPost: Decodable {
 public struct ResponseAPIOnlineNotificationDataPostContentId: Decodable {
     public let userId: String
     public let permlink: String
-    public let refBlockNum: UInt64
+    public let refBlockNum: UInt64?
 }
 
 
@@ -800,7 +800,7 @@ public struct ResponseAPIOnlineNotificationDataComment: Decodable {
 public struct ResponseAPIOnlineNotificationDataCommentContentId: Decodable {
     public let userId: String
     public let permlink: String
-    public let refBlockNum: Int64
+    public let refBlockNum: Int64?
 }
 
 public struct ResponseAPIOnlineNotificationDataValue: Decodable {
