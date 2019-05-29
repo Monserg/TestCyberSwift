@@ -268,6 +268,32 @@ public class RestAPIManager {
         })
     }
     
+    // API `content.waitForTransaction`
+    public func waitForTransactionWith(id: String, completion: @escaping (ErrorAPI?) -> Void) {
+        // Offline mode
+        if (!Config.isNetworkAvailable) { return completion(ErrorAPI.disableInternetConnection(message: nil)) }
+        let methodAPIType = MethodAPIType.waitForTransaction(id: id)
+        
+        Broadcast.instance.executeGETRequest(byContentAPIType: methodAPIType, onResult: { (responseAPIResult) in
+            guard let result = (responseAPIResult as! ResponseAPIContentWaitForTransactionResult).result,
+                result.status == "OK"
+            else {
+                if let responseAPIError = (responseAPIResult as! ResponseAPIContentWaitForTransactionResult).error {
+                    Logger.log(message: "\nAPI `content.waitForTransaction` response mapping error: \n\(responseAPIError.message)\n", event: .error)
+                    return completion(ErrorAPI.jsonParsingFailure(message: "\(responseAPIError.message)"))
+                }
+                return completion(ErrorAPI.requestFailed(message: "Unknown error"))
+            }
+            
+            Logger.log(message: "\nAPI `content.waitForTransaction` response result: \n\(result)\n", event: .debug)
+            return completion(nil)
+            
+        }, onError: {error in
+            Logger.log(message: "\nAPI `content.waitForTransaction` response error: \n\(error)\n", event: .error)
+            return completion(error)
+        })
+    }
+    
     // API `push.historyFresh`
     public func getPushHistoryFresh(nickName:       String = Config.currentUser.nickName ?? "Cyberway",
                                     completion:     @escaping (ResponseAPIPushHistoryFresh?, ErrorAPI?) -> Void) {
@@ -516,7 +542,36 @@ public class RestAPIManager {
         })
     }
     
+    // API `favorites.get`
+    public func getFavorites(nickName:          String,
+                             responseHandling:  @escaping (ResponseAPIGetFavorites) -> Void,
+                             errorHandling:     @escaping (ErrorAPI) -> Void) {
+        // Offline mode
+        if (!Config.isNetworkAvailable) { return errorHandling(ErrorAPI.disableInternetConnection(message: nil)) }
+        
+        // Check user authorize
+        guard Config.currentUser.nickName != nil else { return errorHandling(ErrorAPI.invalidData(message: "Unauthorized")) }
+        
+        let methodAPIType = MethodAPIType.getFavorites(nickName: nickName)
+        
+        Broadcast.instance.executeGETRequest(byContentAPIType:  methodAPIType,
+                                             onResult:          { responseAPIResult in
+                                                guard let result = (responseAPIResult as! ResponseAPIGetFavoritesResult).result else {
+                                                    let responseAPIError = (responseAPIResult as! ResponseAPIMetaRecordPostViewResult).error
+                                                    Logger.log(message: "\nAPI `favorites.get` response mapping error: \n\(responseAPIError!.message)\n", event: .error)
+                                                    return errorHandling(ErrorAPI.jsonParsingFailure(message: "\(responseAPIError!.message)"))
+                                                }
+                                                
+                                                Logger.log(message: "\nAPI `favorites.get` response result: \n\(responseAPIResult)\n", event: .debug)
+                                                responseHandling(result)
+        },
+                                             onError:           { (errorAPI) in
+                                                Logger.log(message: "\nAPI `favorites.get` response error: \n\(errorAPI.caseInfo.message)\n", event: .error)
+                                                errorHandling(errorAPI)
+        })
+    }
     
+
     // MARK: - REGISTRATION-SERVICE
     // API `registration.getState`
     public func getState(nickName:          String? = Config.currentUser.nickName,

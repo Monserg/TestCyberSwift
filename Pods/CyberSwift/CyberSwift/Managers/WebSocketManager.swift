@@ -161,6 +161,9 @@ public class WebSocketManager {
             case .getPost(_):
                 return (responseAPI: try JSONDecoder().decode(ResponseAPIContentGetPostResult.self, from: jsonData), errorAPI: nil)
                 
+            case .waitForTransaction(id: _):
+                return (responseAPI: try JSONDecoder().decode(ResponseAPIContentWaitForTransactionResult.self, from: jsonData), errorAPI: nil)
+                
             case .getUserComments(_), .getPostComments(_):
                 return (responseAPI: try JSONDecoder().decode(ResponseAPIContentGetCommentsResult.self, from: jsonData), errorAPI: nil)
                 
@@ -199,6 +202,9 @@ public class WebSocketManager {
 
             case .recordPostView(_):
                 return (responseAPI: try JSONDecoder().decode(ResponseAPIMetaRecordPostViewResult.self, from: jsonData), errorAPI: nil)
+
+            case .getFavorites(_):
+                return (responseAPI: try JSONDecoder().decode(ResponseAPIGetFavoritesResult.self, from: jsonData), errorAPI: nil)
 
                 
             // REGISTRATION-SERVICE

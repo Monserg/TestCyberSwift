@@ -353,6 +353,18 @@ public struct ResponseAPIContentGetPostResult: Decodable {
     public let error: ResponseAPIError?
 }
 
+// MARK: -
+public struct ResponseAPIContentWaitForTransactionResult: Decodable {
+    // MARK: - In work API `content.waitForTransaction`
+    public let id: Int64
+    public let jsonrpc: String
+    public let result: ResponseAPIContentWaitForTransaction?
+    public let error: ResponseAPIError?
+}
+
+public struct ResponseAPIContentWaitForTransaction: Decodable {
+    public let status: String
+}
 
 // MARK: -
 public struct ResponseAPIContentGetCommentsResult: Decodable {
@@ -988,4 +1000,20 @@ public struct ResponseAPIMetaRecordPostViewResult: Decodable {
 // MARK: -
 public struct ResponseAPIMetaRecordPostView: Decodable {
     public let status: String
+}
+
+
+// MARK: -
+public struct ResponseAPIGetFavoritesResult: Decodable {
+    public let jsonrpc: String
+    public let id: UInt16
+    public let result: ResponseAPIGetFavorites?
+    public let error: ResponseAPIError?
+}
+
+
+// MARK: -
+public struct ResponseAPIGetFavorites: Decodable {
+    #warning("Add `list` structure")
+    public let list: [String?]
 }

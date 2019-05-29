@@ -88,6 +88,9 @@ public indirect enum MethodAPIType {
     //  Getting selected post
     case getPost(userID: String, permlink: String)
     
+    //  Waiting for transaction
+    case waitForTransaction(id: String)
+    
     //  Getting user comments feed
     case getUserComments(nickName: String, sortMode: CommentSortMode, paginationSequenceKey: String?)
     
@@ -130,6 +133,9 @@ public indirect enum MethodAPIType {
 
     //  Record the fact of viewing the post
     case recordPostView(permlink: String)
+
+    //  Get selected user posts
+    case getFavorites(nickName: String)
 
     
     /// REGISTRATION-SERVICE
@@ -190,6 +196,13 @@ public indirect enum MethodAPIType {
                      methodGroup:       MethodAPIGroup.content.rawValue,
                      methodName:        "getPost",
                      parameters:        ["userId": userNickNameValue, "permlink": permlinkValue])
+            
+        //  Template { "id": 1, "jsonrpc": "2.0", "method": "content.waitForTransaction", "params": { "transactionId": "OdklASkljlAQafdlkjEoljmasdfkD" } }
+        case .waitForTransaction(let id):
+            return  (methodAPIType:     self,
+                     methodGroup:       MethodAPIGroup.content.rawValue,
+                     methodName:        "waitForTransaction",
+                     parameters:        ["transactionId": id])
             
         //  Template { "id": 4, "jsonrpc": "2.0", "method": "content.getComments", "params": { "type: "user", "userId": "tst2nbduouxh", "sortBy": "time", "limit": 20 }}
         case .getUserComments(let userNickNameValue, let sortModeValue, let paginationSequenceKeyValue):
@@ -314,7 +327,14 @@ public indirect enum MethodAPIType {
                      methodName:        "recordPostView",
                      parameters:        ["postLink": permlink, "fingerPrint": Config.currentDeviceType])
             
+        //  Template { "id": 16, "jsonrpc": "2.0", "method": "favorites.get", "params": { "user": <userNickName> }}
+        case .getFavorites(let nickName):
+            return  (methodAPIType:     self,
+                     methodGroup:       MethodAPIGroup.favorites.rawValue,
+                     methodName:        "get",
+                     parameters:        ["user": nickName])
             
+
         /// REGISTRATION-SERVICE
         //  Template { "id": 1, "jsonrpc": "2.0", "method": "registration.getState", "params": { "phone": "+70000000000" }}
         case .getState(let nickNameValue, let phoneValue):

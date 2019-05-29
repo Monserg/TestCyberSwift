@@ -59,6 +59,9 @@ class ViewController: UIViewController {
 //                                       body:        "Reblog body 1")
         
         
+        /// Test API `favorites.get`
+        FacadeService().testGetFavorites()
+
         
 //        FacadeService().testGetUserCommentsByUser()
 //        FacadeService().testGetUserCommentsByPost()
@@ -113,7 +116,7 @@ class ViewController: UIViewController {
         
         
         /// Contract `gls.ctrl`, action `unregwitness` (4)
-        EOSService().testUnregwitness()
+//        EOSService().testUnregwitness()
         
         
         // First, run `FacadeService().testGetFeed()`
