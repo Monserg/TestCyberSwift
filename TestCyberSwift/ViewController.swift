@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         
         // EOS
         /// Contract `gls.publish` action `createmssg`
-        EOSService().testCreatePostMessage()
+//        EOSService().testCreatePostMessage()
 
         
         /// Contract `gls.publish` action `updatemssg`
@@ -98,7 +98,10 @@ class ViewController: UIViewController {
 //                                messageRefBlockNum:     198452,
 //                                messageRebloger:        "tst2jejxypdx")
 //
-//        EOSService().testRegwitness()
+        
+        
+        /// Contract `gls.ctrl`, action `regwitness`
+        EOSService().testRegwitness()
 //        EOSService().testVotewitness()
 //        EOSService().testUnvotewitness()
 //        EOSService().testUnregwitness()

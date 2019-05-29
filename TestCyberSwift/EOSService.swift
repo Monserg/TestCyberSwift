@@ -176,8 +176,6 @@ struct EOSService {
     func testRegwitness() {
         let witness: String     =   Config.currentUser.nickName!
         let url: String         =   String.randomString(length: 20)
-
-        Config.isPublicTestnet  =   true
         
         RestAPIManager.instance.reg(witness:                witness,
                                     url:                    url,
@@ -194,8 +192,6 @@ struct EOSService {
         let voter: String       =   Config.testUserAccount.nickName
         let witness: String     =   Config.currentUser.nickName!
         
-        Config.isPublicTestnet  =   true
-
         RestAPIManager.instance.vote(witness:               witness,
                                      voter:                 voter,
                                      responseHandling:      { response in
@@ -211,8 +207,6 @@ struct EOSService {
         let voter: String       =   Config.testUserAccount.nickName
         let witness: String     =   Config.currentUser.nickName!
         
-        Config.isPublicTestnet  =   true
-        
         RestAPIManager.instance.unvote(witness:             witness,
                                        voter:               voter,
                                        responseHandling:    { response in
@@ -226,8 +220,6 @@ struct EOSService {
     /// Action `unregwitness` (4)
     func testUnregwitness() {
         let witness: String     =   Config.currentUser.nickName!
-        
-        Config.isPublicTestnet  =   true
         
         RestAPIManager.instance.unreg(witness:              witness,
                                       responseHandling:     { response in
