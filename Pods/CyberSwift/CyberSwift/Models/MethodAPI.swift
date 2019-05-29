@@ -134,10 +134,13 @@ public indirect enum MethodAPIType {
     //  Record the fact of viewing the post
     case recordPostView(permlink: String)
 
-    //  Get selected user posts
-    case getFavorites(nickName: String)
+    //  Get current auth user posts
+    case getFavorites
 
+    //  Add post to favorites
+    case addFavorites(permlink: String)
     
+
     /// REGISTRATION-SERVICE
     //  Get current registration status for user
     case getState(nickName: String?, phone: String?)
@@ -328,12 +331,19 @@ public indirect enum MethodAPIType {
                      parameters:        ["postLink": permlink, "fingerPrint": Config.currentDeviceType])
             
         //  Template { "id": 16, "jsonrpc": "2.0", "method": "favorites.get", "params": { "user": <userNickName> }}
-        case .getFavorites(let nickName):
+        case .getFavorites:
             return  (methodAPIType:     self,
                      methodGroup:       MethodAPIGroup.favorites.rawValue,
                      methodName:        "get",
-                     parameters:        ["user": nickName])
-            
+                     parameters:        ["user": Config.currentUser.nickName!])
+
+        //  Template { "id": 17, "jsonrpc": "2.0", "method": "favorites.add", "params": { "permlink": <selectedPostPermlink> }}
+        case .addFavorites(let permlink):
+            return  (methodAPIType:     self,
+                     methodGroup:       MethodAPIGroup.favorites.rawValue,
+                     methodName:        "add",
+                     parameters:        ["permlink": permlink])
+
 
         /// REGISTRATION-SERVICE
         //  Template { "id": 1, "jsonrpc": "2.0", "method": "registration.getState", "params": { "phone": "+70000000000" }}

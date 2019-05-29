@@ -236,12 +236,26 @@ struct FacadeService {
     /// Test API `favorites.get`
     //  1. user only for current auth user
     func testGetFavorites() {
-        if let currentUserNickName = Config.currentUser.nickName {
-            RestAPIManager.instance.getFavorites(nickName:              currentUserNickName,
-                                                 responseHandling:      { response in
+        if Config.currentUser.nickName != nil {
+            RestAPIManager.instance.getFavorites(responseHandling:  { response in
                                                     Logger.log(message: "response: \n\t\(response)", event: .debug)
             },
-                                                 errorHandling:         { errorAPI in
+                                                 errorHandling:     { errorAPI in
+                                                    Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+            })
+        }
+    }
+
+    
+    /// Test API `favorites.add`
+    //  1. user only for current auth user
+    func testAddFavorites() {
+        if Config.currentUser.nickName != nil {
+            RestAPIManager.instance.addFavorites(permlink:          "oesowgfuzfif/kjbkbjbbjk",
+                                                 responseHandling:  { response in
+                                                    Logger.log(message: "response: \n\t\(response)", event: .debug)
+            },
+                                                 errorHandling:     { errorAPI in
                                                     Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
             })
         }
