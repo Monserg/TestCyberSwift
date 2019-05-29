@@ -105,8 +105,14 @@ class ViewController: UIViewController {
 
 
         /// Contract `gls.ctrl`, action `votewitness`
-        EOSService().testVotewitness()
-//        EOSService().testUnvotewitness()
+//        EOSService().testVotewitness()
+        
+        
+        /// Contract `gls.ctrl`, action `unvotewitn`
+        EOSService().testUnvotewitness()
+        
+        
+        
 //        EOSService().testUnregwitness()
         
         // First, run `FacadeService().testGetFeed()`
