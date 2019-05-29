@@ -101,8 +101,11 @@ class ViewController: UIViewController {
         
         
         /// Contract `gls.ctrl`, action `regwitness`
-        EOSService().testRegwitness()
-//        EOSService().testVotewitness()
+//        EOSService().testRegwitness()
+
+
+        /// Contract `gls.ctrl`, action `votewitness`
+        EOSService().testVotewitness()
 //        EOSService().testUnvotewitness()
 //        EOSService().testUnregwitness()
         
