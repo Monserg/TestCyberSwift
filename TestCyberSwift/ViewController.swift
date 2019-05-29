@@ -60,11 +60,15 @@ class ViewController: UIViewController {
         
         
         /// Test API `favorites.get`
-//        FacadeService().testGetFavorites()
+        FacadeService().testGetFavorites()
 
         
         /// Test API `favorites.add`
-        FacadeService().testAddFavorites()
+//        FacadeService().testAddFavorites()
+
+        
+        /// Test API `favorites.remove`
+//        FacadeService().testRemoveFavorites()
 
         
 //        FacadeService().testGetUserCommentsByUser()

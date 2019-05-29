@@ -32,4 +32,4 @@
 4. test contract `gls.ctrl`, action `unregwitness`
 5. test API `favorites.get`
 6. test API `favorites.add`
-
+7. test API `favorites.remove`

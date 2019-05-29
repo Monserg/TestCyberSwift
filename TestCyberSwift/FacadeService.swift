@@ -260,4 +260,19 @@ struct FacadeService {
             })
         }
     }
+
+
+    /// Test API `favorites.remove`
+    //  1. user only for current auth user
+    func testRemoveFavorites() {
+        if Config.currentUser.nickName != nil {
+            RestAPIManager.instance.removeFavorites(permlink:           "oesowgfuzfif/kjbkbjbbjk",
+                                                    responseHandling:   { response in
+                                                        Logger.log(message: "response: \n\t\(response)", event: .debug)
+            },
+                                                    errorHandling:      { errorAPI in
+                                                        Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+            })
+        }
+    }
 }
