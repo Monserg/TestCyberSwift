@@ -19,3 +19,8 @@
 2. test action `downvote`
 3. test action `unvote`
 4. test action `reblog`
+
+
+28.05.2019:
+1. test contract `gls.publish`, action `createmssg`, create post comment
+

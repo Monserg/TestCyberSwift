@@ -52,11 +52,11 @@ class ViewController: UIViewController {
         
         
         /// Test action `reblog`
-        EOSService().testMessageReblog(author:      "tst2dqowtufr",
-                                       permlink:    "hestiafightswithandromacheagainstperses",
-                                       rebloger:    Config.currentUser.nickName ?? "",
-                                       title:       "Reblog title 1",
-                                       body:        "Reblog body 1")
+//        EOSService().testMessageReblog(author:      "tst2dqowtufr",
+//                                       permlink:    "hestiafightswithandromacheagainstperses",
+//                                       rebloger:    Config.currentUser.nickName ?? "",
+//                                       title:       "Reblog title 1",
+//                                       body:        "Reblog body 1")
         
         
         
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         
         // EOS
         /// Contract `gls.publish` action `createmssg`
-//        EOSService().testCreatePostMessage()
+        EOSService().testCreatePostMessage()
 
         
         /// Contract `gls.publish` action `updatemssg`

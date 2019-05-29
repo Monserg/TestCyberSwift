@@ -25,19 +25,18 @@ struct EOSService {
     
 
     //  MARK: - Contract `gls.publish`
-    /// Action `createmssg`
+    /// Action `createmssg`, create new post
     func testCreatePostMessage() {
-        let testTitle: String       =   "Title2" // "Post theme"
-        let testTags: [String]?     =   ["#jfks", "#sfndkl"] // ["#vk", "#insta", "#vc"]
-        let testMetaData: String?   =   "{\"embeds\":[{\"url\":\"https:\\/\\/Vc.ru\"}]}" // "{\"embeds\":[{\"url\":\"https:\\/\\/Vc.ru\"}]}"
-//        let testMessage: String     =   "I’m reading #vk #insta and #vc\nHttp://Vk.com https://vc.ru"
-        let testMessage: String     =   "Jvhukijlk;mknbjvftg7lyijknbafgudyhkjbg adds #jfks #sfndkl https://vc.ru" // "I’m reading #vk #insta and #vc\nHttp://Vk.com https://vc.ru"
+        let testTitle: String               =   "Title2"
+        let testTags: [String]?             =   ["#jfks", "#sfndkl"]
+        let testMetaData: String?           =   "{\"embeds\":[{\"url\":\"https:\\/\\/Vc.ru\"}]}"
+        let testMessage: String             =   "Jvhukijlk;mknbjvftg7lyijknbafgudyhkjbg adds #jfks #sfndkl https://vc.ru"
         
         RestAPIManager.instance.create(message:             testMessage,
                                        headline:            testTitle,
                                        tags:                testTags,
                                        metaData:            testMetaData,
-                                       responseHandling:    { (response) in
+                                       responseHandling:    { response in
                                         Logger.log(message: "response: \(response)", event: .debug)
                                         
                                         if let data = response.body?.processed.action_traces.first?.act.data, let messageID = data["message_id"], let json = messageID.jsonValue as? [String: AnyJSONType] {
@@ -48,11 +47,14 @@ struct EOSService {
 //                                                self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
                                                 
                                                 // Test action `reblog`
-                                                self.testMessageReblog(author:      authorValue,
-                                                                       permlink:    permlinkValue,
-                                                                       rebloger:    "tst1kfzmmlqi",
-                                                                       title:       "Reblog title #1",
-                                                                       body:        "Reblog body message #1")
+//                                                self.testMessageReblog(author:      authorValue,
+//                                                                       permlink:    permlinkValue,
+//                                                                       rebloger:    "tst1kfzmmlqi",
+//                                                                       title:       "Reblog title #1",
+//                                                                       body:        "Reblog body message #1")
+                                                
+                                                // Test action `createmssg`, create new comment
+                                                self.testCreateCommentMessage(parentPermlink: permlinkValue, tags: testTags!)
                                             }
 
                                             
@@ -71,21 +73,40 @@ struct EOSService {
     }
 
     
+    /// Action `createmssg`, create new comment
+    func testCreateCommentMessage(parentPermlink: String, tags: [String]) {
+        let testTitle: String       =   "Comment Title \(arc4random_uniform(200))"
+        let testMessage: String     =   "Comment Message \(arc4random_uniform(200))"
+        
+        RestAPIManager.instance.create(message:             testMessage,
+                                       headline:            testTitle,
+                                       parentPermlink:      parentPermlink,
+                                       tags:                tags,
+                                       metaData:            nil,
+                                       responseHandling:    { response in
+                                        Logger.log(message: "response: \(response)", event: .debug)
+        },
+                                       errorHandling:       { (errorAPI) in
+                                        Logger.log(message: errorAPI.caseInfo.message, event: .error)
+        })
+    }
+
+    
     /// Action `updatemssg`
     func testUpdatePostMessage() {
         let messageAuthor: String           =   Config.testUserAccount.nickName
         let messagePermlink: String         =   "title2-2019-05-23t12-30-55"
-        let messageParentData: ParentData?  =   nil
-        let messageBody: String             =   "Updating body message for current \(messageParentData == nil ? "Post" : "Comment")..."
+        let messageParentPermlink: String?  =   nil
+        let messageBody: String             =   "Updating body message for current \(messageParentPermlink == nil ? "Post" : "Comment")..."
         
-        RestAPIManager.instance.updateMessage(author: messageAuthor,
-                                              permlink: messagePermlink,
-                                              message: messageBody,
-                                              parentData: messageParentData,
-                                              responseHandling: { response in
+        RestAPIManager.instance.updateMessage(author:               messageAuthor,
+                                              permlink:             messagePermlink,
+                                              message:              messageBody,
+                                              parentPermlink:       messageParentPermlink,
+                                              responseHandling:     { response in
                                                 Logger.log(message: "response: \(response)", event: .debug)
         },
-                                              errorHandling: { errorAPI in
+                                              errorHandling:        { errorAPI in
                                                 Logger.log(message: errorAPI.caseInfo.message, event: .error)
         })
     }
