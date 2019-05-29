@@ -29,4 +29,5 @@
 1. test contract `gls.ctrl`, action `regwitness`
 2. test contract `gls.ctrl`, action `votewitness`
 3. test contract `gls.ctrl`, action `unvotewitn`
+4. test contract `gls.ctrl`, action `unregwitness`
 

@@ -100,20 +100,21 @@ class ViewController: UIViewController {
 //
         
         
-        /// Contract `gls.ctrl`, action `regwitness`
+        /// Contract `gls.ctrl`, action `regwitness` (1)
 //        EOSService().testRegwitness()
 
 
-        /// Contract `gls.ctrl`, action `votewitness`
+        /// Contract `gls.ctrl`, action `votewitness` (2)
 //        EOSService().testVotewitness()
         
         
-        /// Contract `gls.ctrl`, action `unvotewitn`
-        EOSService().testUnvotewitness()
+        /// Contract `gls.ctrl`, action `unvotewitn` (3)
+//        EOSService().testUnvotewitness()
         
         
+        /// Contract `gls.ctrl`, action `unregwitness` (4)
+        EOSService().testUnregwitness()
         
-//        EOSService().testUnregwitness()
         
         // First, run `FacadeService().testGetFeed()`
 //        EOSService().testReblog()
