@@ -14,7 +14,7 @@ struct EOSService {
     //  MARK: - Contract `gls.social`
     /// Posting image
     func testPostingImage() {
-        RestAPIManager.instance.posting(image:              UIImage(named: "volvo")!,
+        RestAPIManager.instance.posting(image:              UIImage(named: "test-2")!,
                                         responseHandling:   { response in
                                             Logger.log(message: "response: \(response)", event: .debug)
         },

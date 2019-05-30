@@ -781,7 +781,8 @@ public struct ResponseAPIOnlineNotificationDataComunity: Decodable {
 
 // MARK: -
 public struct ResponseAPIOnlineNotificationDataActor: Decodable {
-    public let id: String?
+    public let userId: String?
+    public let username: String?
     public let avatarUrl: String?
 }
 
@@ -789,7 +790,7 @@ public struct ResponseAPIOnlineNotificationDataActor: Decodable {
 // MARK: -
 public struct ResponseAPIOnlineNotificationDataPost: Decodable {
     public let contentId: ResponseAPIOnlineNotificationDataPostContentId
-    public let title: String
+    public let title: String?
 }
 
 

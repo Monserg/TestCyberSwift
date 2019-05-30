@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     @IBAction func testButtonTapped(_ sender: UIButton) {
 //        self.messageVote()
-//        EOSService().testPostingImage()
+        EOSService().testPostingImage()
         
 
         // FACADE-SERVICE
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         
         
         /// Test API `favorites.get`
-        FacadeService().testGetFavorites()
+//        FacadeService().testGetFavorites()
 
         
         /// Test API `favorites.add`
