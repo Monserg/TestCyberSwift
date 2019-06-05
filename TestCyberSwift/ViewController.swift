@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     @IBAction func testButtonTapped(_ sender: UIButton) {
 //        self.messageVote()
-        EOSService().testPostingImage()
+//        EOSService().testPostingImage()
         
 
         // FACADE-SERVICE
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 
         
         /// Test API `content.getProfile`
-//        FacadeService().testGetProfile(nickName: Config.testUserAccount.nickName)
+//        FacadeService().testGetProfile()
         
         
         /// Test action `reblog`
@@ -87,6 +87,10 @@ class ViewController: UIViewController {
         
         
         // EOS
+        /// Contract `gls.social` action `updatemeta`
+        EOSService().testUpdatemeta()
+
+
         /// Contract `gls.publish` action `createmssg`
 //        EOSService().testCreatePostMessage()
 

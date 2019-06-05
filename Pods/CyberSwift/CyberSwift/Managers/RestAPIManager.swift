@@ -126,13 +126,13 @@ public class RestAPIManager {
     }
     
     // API `content.getProfile`
-    public func getProfile(nickName:    String,
-                           type:        ProfileType = .cyber,
-                           completion:  @escaping (ResponseAPIContentGetProfile?, ErrorAPI?) -> Void) {
+    public func getProfile(nickName:        String,
+                           appProfileType:  AppProfileType = .cyber,
+                           completion:      @escaping (ResponseAPIContentGetProfile?, ErrorAPI?) -> Void) {
         // Offline mode
         if (!Config.isNetworkAvailable) { return completion(nil, ErrorAPI.disableInternetConnection(message: nil)) }
         
-        let methodAPIType = MethodAPIType.getProfile(nickName: nickName, type: type)
+        let methodAPIType = MethodAPIType.getProfile(nickName: nickName, appProfileType: appProfileType)
         
         Broadcast.instance.executeGETRequest(byContentAPIType:  methodAPIType,
                                              onResult:          { (responseAPIResult) in
@@ -850,7 +850,7 @@ public class RestAPIManager {
         // Offline mode
         guard Config.isNetworkAvailable else { return errorHandling(ErrorAPI.disableInternetConnection(message: nil)) }
         
-        guard let resizedImage = image.resize(to: 1.5) else { return errorHandling(ErrorAPI.invalidData(message: "Invalid Data")) }
+        guard let resizedImage = image.resize(to: 2) else { return errorHandling(ErrorAPI.invalidData(message: "Invalid Data")) }
         
         guard let imageData = resizedImage.jpegData(compressionQuality: 1.0) ?? resizedImage.pngData() else { return errorHandling(ErrorAPI.invalidData(message: "Invalid Data")) }
 
@@ -906,7 +906,8 @@ public class RestAPIManager {
     }
     
     /// Action `updatemeta`
-    public func update(userProfile:         [String: String],
+    public func update(userProfile:         [String: String?],
+                       appProfileType:      AppProfileType = .cyber,
                        responseHandling:    @escaping (ChainResponse<TransactionCommitted>) -> Void,
                        errorHandling:       @escaping (Error) -> Void) {
         // Offline mode
@@ -914,11 +915,16 @@ public class RestAPIManager {
         
         // Check user authorize
         guard let nickName = Config.currentUser.nickName else { return errorHandling(ErrorAPI.invalidData(message: "Unauthorized")) }
-        
+
         let userProfileAccountmetaArgs = EOSTransaction.UserProfileAccountmetaArgs(json: userProfile)
         
         let userProfileMetaArgs = EOSTransaction.UserProfileUpdatemetaArgs(accountValue:    nickName,
-                                                                           metaValue:       userProfileAccountmetaArgs)
+                                                                                metaValue:       userProfileAccountmetaArgs)
+
+//        let userProfileAccountmetaArgs: Encodable = appProfileType == .cyber ?  EOSTransaction.CyberUserProfileAccountmetaArgs(json: userProfile) :
+//                                                                                EOSTransaction.GolosUserProfileAccountmetaArgs(json: userProfile)
+//
+//        let userProfileMetaArgs = EOSTransaction.CyberUserProfileAccountmetaArgs(json: userProfile)
         
         EOSManager.update(userProfileMetaArgs:  userProfileMetaArgs,
                           responseResult:       { result in

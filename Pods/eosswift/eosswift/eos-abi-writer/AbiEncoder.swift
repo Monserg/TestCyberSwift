@@ -1,36 +1,36 @@
 import Foundation
 
 class AbiEncoder : Encoder {
-    
+
     var codingPath: [CodingKey] = []
-    
+
     var userInfo: [CodingUserInfoKey : Any] = [:]
-    
+
     private let abiEncodingContainer: AbiEncodingContainer
-    
+
     func toData() -> Data {
         return abiEncodingContainer.toData()
     }
-    
+
     init(capacity: Int) {
         abiEncodingContainer = AbiEncodingContainer(capacity: capacity)
     }
-    
+
     func container<Key>(keyedBy type: Key.Type) -> KeyedEncodingContainer<Key> where Key : CodingKey {
         fatalError("container<Key> not supported")
     }
-    
+
     func unkeyedContainer() -> UnkeyedEncodingContainer {
         return abiEncodingContainer
     }
-    
+
     func singleValueContainer() -> SingleValueEncodingContainer {
         fatalError("singleValueContainer not supported")
     }
 }
 
 extension AbiEncoder {
-    
+
     func encode(encodable: Encodable) throws {
         let mirror = Mirror(reflecting: encodable)
         for child in mirror.children {
@@ -39,10 +39,19 @@ extension AbiEncoder {
                 try abiEncodingContainer.encode(child.value as! Bool)
             case is String:
                 if type(of: child.value) == String?.self {
-                    if let value = child.value as? String, value.count > 0 {
-                        try abiEncodingContainer.encode(1)
-                        try abiEncodingContainer.encode(value.count)
-                        try abiEncodingContainer.encode(value)
+                    if let value = child.value as? String {
+                        if mirror.description.contains("UserProfileAccountmetaArgs") {
+                            if value.count > 0 || value.isEmpty {
+                                try abiEncodingContainer.encode(UInt8(1))
+                                try abiEncodingContainer.encode(value)
+                            }
+                        }
+
+                        else if value.count > 0 {
+                            try abiEncodingContainer.encode(1)
+                            try abiEncodingContainer.encode(value.count)
+                            try abiEncodingContainer.encode(value)
+                        }
                     }
                 } else {
                     try abiEncodingContainer.encode(child.value as! String)
@@ -71,11 +80,11 @@ extension AbiEncoder {
                 if child.label! == "ref_block_num" {
                     try abiEncodingContainer.encode(child.value as! UInt64, asDefault: false)
                 }
-                    
+
                 else if child.label! == "parent_recid" {
                     try abiEncodingContainer.encode(child.value as! UInt64, asDefault: false)
                 }
-                    
+
                 else {
                     try abiEncodingContainer.encode(child.value as! UInt64, asDefault: true)
                 }
@@ -111,7 +120,7 @@ extension AbiEncoder {
                 }
             case is Encodable:
                 if type(of: child.value) == String?.self {
-                    try abiEncodingContainer.encode(0)
+                    try abiEncodingContainer.encode(mirror.description.contains("UserProfileAccountmetaArgs") ? UInt8(0) : 0)
                 } else {
                     try self.encode(encodable: child.value as! Encodable)
                 }

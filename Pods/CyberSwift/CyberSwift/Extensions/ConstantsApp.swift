@@ -35,7 +35,7 @@ public struct Config {
     static let gate_API_IP: String                      =   isPublicTestnet ? "ws://116.203.98.241:8080/"   :   "ws://159.69.33.136:8080/"
     static let gate_API_URL: String                     =   isPublicTestnet ? "wss://cyber-gate.golos.io/"  :   "wss://gate.commun.com/"
 
-    public static let testingPassword: String           =   "DpQad16yDlllEy6"
+    public static let testingPassword: String           =   "machtfrei"
     static let imageHost: String                        =   "https://img.golos.io/upload"
     
     /// Websocket
@@ -91,13 +91,13 @@ public struct Config {
     
     // testnet: http://116.203.39.126:7777/get_users
     public static let testUserAccount                   =   (
-                                                                nickName:       "tst2vteffdjg",
-                                                                alias:          "zieme-clarabelle-dvm",
-                                                                ownerKey:       "5KjkQMk2LxL6hqofx9hgh4AQGkDHBxiapfx1gi4yjbFNc6e2T7V",
-                                                                activeKey:      "5J4qUH3mtPAnR6U6ESamcedVfcrx2wu6EfjHbuXDqqrNorh7DCx",
-                                                                postingKey:     "5J4DHWmqF2ZQ5gqcjMX1bvqQ8kNEreRYZokfzAyCeDjLsD2TLiM"
+                                                                nickName:       "tst3ipyjvdfr",
+                                                                alias:          "west-ayden-iv",
+                                                                ownerKey:       "5K5tHvjEVqWAoybuVzU3RuDF7v2Ap5yMuiT15aN52FFuBK8Kd2m",
+                                                                activeKey:      "5HwSb7jA8z5dEKMpBp1cj5snA7nrQCGjKqakjDmWVYXMHMc3Dcc",
+                                                                postingKey:     "5JKmzB9pFMELrdfivKzPJMoMEosn8zRqiEUADzGJdUmq5HAar23"
                                                             )
-
+    
     public static let testUserAccount2                  =   (
                                                                 nickName:       "tst1kfzmmlqi",
                                                                 alias:          "lemke-grady-v",
@@ -105,7 +105,15 @@ public struct Config {
                                                                 activeKey:      "5JUzKBRhhsHBApah3N3JEs6b3skRGyTSvbCUkCsWa5C8yyksbxv",
                                                                 postingKey:     "5JWNf17VWYhchFcRtGdXMLgZeRtYSS72U2ZsLLnLj6MDjdqdEAU"
                                                             )
-    
+
+    public static let testUserAccount3                  =   (
+                                                                nickName:       "tst5rheippil",
+                                                                alias:          "gutmann-juliet-sr",
+                                                                ownerKey:       "5KUQAaBNzTbXFnyfovXhxe8LWuwCdx9yR8cjH25Lsw6v6bmdt6Z",
+                                                                activeKey:      "5KZkYtJZLt8DFo7D7VG8EDtRsurNpwsCieD1J8dxcfivRY2QAPV",
+                                                                postingKey:     "5JSvQq5e1SatkaMBtQP4DED1Xc4qLgssy5KHZrwyhFhqMn4RKvJ"
+                                                            )
+
     
     /// Check network connection
     public static var isNetworkAvailable: Bool {

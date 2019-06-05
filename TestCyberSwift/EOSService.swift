@@ -14,16 +14,98 @@ struct EOSService {
     //  MARK: - Contract `gls.social`
     /// Posting image
     func testPostingImage() {
-        RestAPIManager.instance.posting(image:              UIImage(named: "test-2")!,
-                                        responseHandling:   { response in
-                                            Logger.log(message: "response: \(response)", event: .debug)
-        },
-                                        errorHandling:      { errorAPI in
-                                            Logger.log(message: "error: \(errorAPI)", event: .error)
-        })
+//        for i in 11...15 {
+//            DispatchQueue.main.async {
+                RestAPIManager.instance.posting(image:              UIImage(named: "test-\(1)")!,
+                                                responseHandling:   { response in
+                                                    Logger.log(message: "response: \(response)", event: .debug)
+                },
+                                                errorHandling:      { errorAPI in
+                                                    Logger.log(message: "error: \(errorAPI)", event: .error)
+                })
+//            }
+//        }
     }
     
+    /// Action `updatemeta`
+    func testUpdatemeta() {
+        /*
+             personal.avatarUrl     = or(personal.avatarUrl, meta.profile_image);
+             personal.coverUrl = or(personal.coverUrl, meta.cover_image);
+             personal.biography = or(personal.biography, meta.about);
+             contacts.facebook = or(contacts.facebook, meta.facebook);
+             contacts.telegram = or(contacts.telegram, meta.telegram);
+             contacts.whatsApp = or(contacts.whatsApp, '');
+             contacts.weChat = or(contacts.weChat, '');
+         */
+        
+        let paramsJSON  =   [
+                                "facebook":         "",
+                                "telegram":         "testTelegram",
+                                "about":            "",
+                                "profile_image":    "https://img.golos.io/images/2GQyRK8zNYVcNkd3jQHpXurBDtDb.jpg",
+                                "cover_image":      nil
+                            ]
 
+
+//        let paramsJSON  =   [
+//                                "type":                 "типа",
+//                                "app":                  nil,
+//                                "email":                nil,
+//                                "phone":                nil,
+//                                "facebook":             nil,*
+//                                "instagram":            nil,
+//                                "telegram":             nil,*
+//                                "vk":                   nil,
+//                                "website":              nil,
+//                                "first_name":           nil,
+//                                "last_name":            nil,
+//                                "name":                 nil,
+//                                "birth_date":           nil,
+//                                "gender":               nil,
+//                                "location":             nil,
+//                                "city":                 nil,
+//                                "about":                nil,
+//                                "occupation":           nil,
+//                                "i_can":                nil,
+//                                "looking_for":          nil,
+//                                "business_category":    nil,
+//                                "background_image":     nil,
+//                                "cover_image":          nil,*
+//                                "profile_image":        nil,*
+//                                "user_image":           nil,
+//                                "ico_address":          nil,
+//                                "target_date":          nil,
+//                                "target_plan":          nil,
+//                                "target_point_a":       nil,
+//                                "target_point_b":       nil
+//                            ]
+
+        
+        RestAPIManager.instance.update(userProfile:         paramsJSON,
+                                       responseHandling:    { response in
+                                        Logger.log(message: "response: \(response)", event: .debug)
+                                        
+                                        
+                                        /// API `content.waitForTransaction`
+                                        if let trxID = response.body?.transaction_id {
+                                            RestAPIManager.instance.waitForTransactionWith(id:          trxID,
+                                                                                           completion:  { errorAPI in
+                                                                                            if errorAPI == nil {
+                                                                                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: {
+                                                                                                    FacadeService().testGetProfile()
+                                                                                                })
+                                                                                            }
+                                            })
+
+                                        }
+        },
+                                       errorHandling:      { errorAPI in
+                                        Logger.log(message: "error: \(errorAPI)", event: .error)
+        })
+    }
+
+    
     //  MARK: - Contract `gls.publish`
     /// Action `createmssg`, create new post
     func testCreatePostMessage() {

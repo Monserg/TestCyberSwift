@@ -8,7 +8,7 @@ class AbiEncodingContainer : UnkeyedEncodingContainer {
     private var index: Int = 0
 
     func toData() -> Data {
-        return Data(bytes: buffer[0..<index])
+        return Data(buffer[0..<index])
     }
 
     private func ensureCapacity(_ capacity: Int) {

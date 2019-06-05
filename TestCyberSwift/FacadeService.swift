@@ -82,10 +82,10 @@ struct FacadeService {
     
 
     /// Test API `content.getProfile`
-    func testGetProfile(nickName: String) {
+    func testGetProfile() {
 //        let result = self.deleteAllKeys()
         
-        RestAPIManager.instance.getProfile(nickName:        nickName,
+        RestAPIManager.instance.getProfile(nickName:        Config.currentUser.nickName ?? "XXX",
                                            completion:      { (userProfile, errorAPI) in
                                             guard errorAPI == nil else {
                                                 Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
