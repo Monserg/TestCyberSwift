@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         WebSocketManager.instance.connect()
 
-        _ = WebSocketManager.instance.completed.subscribe(onNext:   { value in
-            print(value)
-        },
-                                                          onError:  { (error) in
-            print(error)
-        })
+//        _ = WebSocketManager.instance.completed.subscribe(onNext:   { value in
+//            print(value)
+//        },
+//                                                          onError:  { (error) in
+//            print(error)
+//        })
                 
         return true
     }

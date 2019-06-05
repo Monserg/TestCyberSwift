@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxCocoa
 import Foundation
 import Starscream
 
@@ -15,7 +16,7 @@ var webSocket = WebSocket(url: URL(string: Config.gate_API_URL)!)
 public class WebSocketManager {
     // MARK: - Properties
     public static let instance = WebSocketManager()
-    public let completed = BehaviorSubject<Bool>(value: false)
+    public let authorized = BehaviorRelay<Bool>(value: false)
 
     private var errorAPI: ErrorAPI?
     
@@ -44,8 +45,7 @@ public class WebSocketManager {
         
         WebSocketManager.instance.completionIsConnected = {
             guard UserDefaults.standard.value(forKey: Config.isCurrentUserLoggedKey) != nil else {
-                self.completed.onNext(true)
-                self.completed.onCompleted()
+                self.authorized.accept(true)
                 return
             }
             
@@ -54,11 +54,11 @@ public class WebSocketManager {
                                                   userActiveKey:        Config.currentUser.activeKey!,
                                                   responseHandling:     { response in
                                                     Logger.log(message: "WebSocketManager API `auth.authorize` permission: \(response.permission)", event: .debug)
-                                                    self.completed.onNext(true)
-                                                    self.completed.onCompleted()
+                                                    self.authorized.accept(true)
                 },
                                                   errorHandling:        { errorAPI in
                                                     Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+                                                    self.authorized.accept(false)
                 })
                 
                 return
@@ -123,7 +123,7 @@ public class WebSocketManager {
      
      */
     private func validate(json: [String: Any], completion: @escaping (_ codeID: Int, _ hasError: Bool) -> Void) {
-        Logger.log(message: json.description, event: .debug)
+//        Logger.log(message: json.description, event: .debug)
         
         guard let id = json["id"] as? Int else {
             if let params = json["params"] as? Dictionary<String, String>, let paramsSecret = params["secret"] {
@@ -151,7 +151,7 @@ public class WebSocketManager {
      */
     func decode(from jsonData: Data, byMethodAPIType methodAPIType: MethodAPIType) throws -> ResponseAPIType {
         do {
-            Logger.log(message: "jsonData = \n\t\(String(describing: try JSONSerialization.jsonObject(with: jsonData, options : .allowFragments) as? [String: AnyObject]))", event: .debug)
+//            Logger.log(message: "jsonData = \n\t\(String(describing: try JSONSerialization.jsonObject(with: jsonData, options : .allowFragments) as? [String: AnyObject]))", event: .debug)
             
             switch methodAPIType {
             // FACADE-SERVICE
@@ -273,7 +273,7 @@ extension WebSocketManager: WebSocketDelegate {
                         return requestMethodAPIStore.completion((responseAPI: nil, errorAPI: strongSelf.errorAPI))
                     }
                     
-                    Logger.log(message: "\nresponseAPIResult model:\n\t\(responseAPIResult)", event: .debug)
+//                    Logger.log(message: "\nresponseAPIResult model:\n\t\(responseAPIResult)", event: .debug)
                     
                     requestMethodAPIStore.completion((responseAPI: responseAPIResult, errorAPI: nil))
                 } catch {

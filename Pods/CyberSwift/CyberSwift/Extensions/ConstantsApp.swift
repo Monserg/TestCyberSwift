@@ -105,7 +105,7 @@ public struct Config {
                                                                 activeKey:      "5JUzKBRhhsHBApah3N3JEs6b3skRGyTSvbCUkCsWa5C8yyksbxv",
                                                                 postingKey:     "5JWNf17VWYhchFcRtGdXMLgZeRtYSS72U2ZsLLnLj6MDjdqdEAU"
                                                             )
-
+    
     public static let testUserAccount3                  =   (
                                                                 nickName:       "tst5rheippil",
                                                                 alias:          "gutmann-juliet-sr",

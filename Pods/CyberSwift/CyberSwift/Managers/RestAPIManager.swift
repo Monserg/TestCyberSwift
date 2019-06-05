@@ -150,7 +150,7 @@ public class RestAPIManager {
                                                 completion(nil, errorAPI)
         })
     }
-    
+
     // API `content.getFeed`
     public func loadFeed(typeMode:                  FeedTypeMode = .community,
                          userID:                    String? = nil,
@@ -173,7 +173,6 @@ public class RestAPIManager {
                                                     return completion(nil, ErrorAPI.jsonParsingFailure(message: "\(responseAPIError!.message)"))
                                                 }
                                                 
-                                                Logger.log(message: "\nAPI `content.getFeed` response result: \n\(responseAPIResult)\n", event: .debug)
                                                 completion(result, nil)
         },
                                              onError:           { (errorAPI) in
@@ -227,7 +226,6 @@ public class RestAPIManager {
                                                     return completion(nil, ErrorAPI.jsonParsingFailure(message: "\(responseAPIError!.message)"))
                                                 }
                                                 
-                                                Logger.log(message: "\nAPI `content.getComments` by user response result: \n\(responseAPIResult)\n", event: .debug)
                                                 completion(result, nil)
         },
                                              onError:           { (errorAPI) in
@@ -259,7 +257,6 @@ public class RestAPIManager {
                                                     return completion(nil, ErrorAPI.jsonParsingFailure(message: "\(responseAPIError!.message)"))
                                                 }
                                                 
-                                                Logger.log(message: "\nAPI `content.getComments` by post response result: \n\(responseAPIResult)\n", event: .debug)
                                                 completion(result, nil)
         },
                                              onError:           { (errorAPI) in
@@ -853,7 +850,7 @@ public class RestAPIManager {
         guard let resizedImage = image.resize(to: 2) else { return errorHandling(ErrorAPI.invalidData(message: "Invalid Data")) }
         
         guard let imageData = resizedImage.jpegData(compressionQuality: 1.0) ?? resizedImage.pngData() else { return errorHandling(ErrorAPI.invalidData(message: "Invalid Data")) }
-
+        
         let session             =   URLSession(configuration: .default)
         let requestURL          =   URL(string: Config.imageHost)!
         
@@ -904,7 +901,7 @@ public class RestAPIManager {
         
         task.resume()
     }
-    
+
     /// Action `updatemeta`
     public func update(userProfile:         [String: String?],
                        appProfileType:      AppProfileType = .cyber,
@@ -915,12 +912,12 @@ public class RestAPIManager {
         
         // Check user authorize
         guard let nickName = Config.currentUser.nickName else { return errorHandling(ErrorAPI.invalidData(message: "Unauthorized")) }
-
+        
         let userProfileAccountmetaArgs = EOSTransaction.UserProfileAccountmetaArgs(json: userProfile)
         
         let userProfileMetaArgs = EOSTransaction.UserProfileUpdatemetaArgs(accountValue:    nickName,
-                                                                                metaValue:       userProfileAccountmetaArgs)
-
+                                                                           metaValue:       userProfileAccountmetaArgs)
+        
 //        let userProfileAccountmetaArgs: Encodable = appProfileType == .cyber ?  EOSTransaction.CyberUserProfileAccountmetaArgs(json: userProfile) :
 //                                                                                EOSTransaction.GolosUserProfileAccountmetaArgs(json: userProfile)
 //
@@ -936,7 +933,7 @@ public class RestAPIManager {
                             errorHandling(errorAPI)
         })
     }
-    
+
     
     //  MARK: - Contract `gls.publish`
     /// Actions `upvote`, `downvote`, `unvote`
