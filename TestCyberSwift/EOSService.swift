@@ -40,9 +40,9 @@ struct EOSService {
          */
         
         let paramsJSON  =   [
-                                "facebook":         "",
+                                "facebook":         "testFacebook",
                                 "telegram":         "testTelegram",
-                                "about":            "",
+                                "about":            "testAbout",
                                 "profile_image":    "https://img.golos.io/images/2GQyRK8zNYVcNkd3jQHpXurBDtDb.jpg",
                                 "cover_image":      nil
                             ]
@@ -109,9 +109,11 @@ struct EOSService {
     //  MARK: - Contract `gls.publish`
     /// Action `createmssg`, create new post
     func testCreatePostMessage() {
-        let testTitle: String               =   "Title2"
-        let testTags: [String]?             =   ["#jfks", "#sfndkl"]
-        let testMetaData: String?           =   "{\"embeds\":[{\"url\":\"https:\\/\\/Vc.ru\"}]}"
+        let testImage: String               =   "{\"type\":\"photo\",\"id\":\(Date().generateCurrentTimeStamp()),\"url\":\"https:\\/\\/img.golos.io\\/images\\/gUmGAM4T5AyoqsV7DgWVz11wMHQ.jpg\"}"
+        let testTitle: String               =   "Photos title 117"
+        let testTags: [String]?             =   ["jfks", "sfndkl"]
+        let testMetaData: String            =   "{\"embeds\": [\(testImage)]}"
+//        let testMetaData: String            =   "{\"embeds\": [\(testImage),{\"url\":\"https:\\/\\/Vc.ru\"}]}"
         let testMessage: String             =   "Jvhukijlk;mknbjvftg7lyijknbafgudyhkjbg adds #jfks #sfndkl https://vc.ru"
         
         RestAPIManager.instance.create(message:             testMessage,
@@ -121,32 +123,30 @@ struct EOSService {
                                        responseHandling:    { response in
                                         Logger.log(message: "response: \(response)", event: .debug)
                                         
-                                        if let data = response.body?.processed.action_traces.first?.act.data, let messageID = data["message_id"], let json = messageID.jsonValue as? [String: AnyJSONType] {
+                                        if  let data        =   response.body?.processed.action_traces.first?.act.data,
+                                            let messageID   =   data["message_id"],
+                                            let json        =   messageID.jsonValue as? [String: AnyJSONType] {
                                             Logger.log(message: "json = \(json)", event: .debug)
                                             
-                                            if let permlinkData = json["permlink"], let permlinkValue = permlinkData.jsonValue as? String, let authorData = json["author"], let authorValue = authorData.jsonValue as? String {
-                                                // Test action `upvote`
-//                                                self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
-                                                
-                                                // Test action `reblog`
-//                                                self.testMessageReblog(author:      authorValue,
-//                                                                       permlink:    permlinkValue,
-//                                                                       rebloger:    "tst1kfzmmlqi",
-//                                                                       title:       "Reblog title #1",
-//                                                                       body:        "Reblog body message #1")
-                                                
-                                                // Test action `createmssg`, create new comment
+                                            // Test action `createmssg`, create new comment
+                                            if let permlinkData = json["permlink"], let permlinkValue = permlinkData.jsonValue as? String {
+                                                Logger.log(message: "permlinkValue = \(permlinkValue), testTags = \(testTags!)", event: .debug)
                                                 self.testCreateCommentMessage(parentPermlink: permlinkValue, tags: testTags!)
                                             }
-
                                             
-
-                                            
-                                            // Test action `reblog`
-//                                            self.testReblog(messageAuthor:          "tst2jejxypdx",
-//                                                            messagePermlink:        "title2-2019-05-20t10-35-36",
-//                                                            messageRefBlockNum:     893085,
-//                                                            messageRebloger:        "tst2jejxypdx")
+                                            /*
+                                            if let authorData = json["author"], let authorValue = authorData.jsonValue as? String {
+                                                // Test action `upvote`
+                                                self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
+                                             
+                                                // Test action `reblog`
+                                                self.testMessageReblog(author:      authorValue,
+                                                                       permlink:    permlinkValue,
+                                                                       rebloger:    "tst1kfzmmlqi",
+                                                                       title:       "Reblog title #1",
+                                                                       body:        "Reblog body message #1")
+                                            }
+                                            */
                                         }
         },
                                        errorHandling:       { (errorAPI) in
@@ -164,7 +164,7 @@ struct EOSService {
                                        headline:            testTitle,
                                        parentPermlink:      parentPermlink,
                                        tags:                tags,
-                                       metaData:            nil,
+                                       metaData:            "nil",
                                        responseHandling:    { response in
                                         Logger.log(message: "response: \(response)", event: .debug)
         },

@@ -35,85 +35,67 @@ struct RegistrationService {
     }
 
     // Test API `registration.firstStep`
-//    func testFirstStep(phone: String) {
-//        RestAPIManager.instance.firstStep(phone:        phone,
-//                                          completion:   { (result, errorAPI) in
-//                                            guard errorAPI == nil else {
-//                                                Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-//                                                return
-//                                            }
-//
-//                                            Logger.log(message: "Response: \n\t\(result!)", event: .debug)
-//
-//                                            self.testVerify(phone: phone, code: String(describing: result!.code))
-////                                            self.resendSmsCode(phone: userPhoneValue)
-//        })
-//    }
+    func testFirstStep(phone: String) {
+            RestAPIManager.instance.firstStep(phone:                phone,
+                                              responseHandling:     { response in
+                                                Logger.log(message: "Response: \n\t\(response)", event: .debug)
+                                                self.testVerify(phone: phone, code: String(describing: response.code))
+//                                            self.resendSmsCode(phone: phone)
+        },
+                                          errorHandling:            { errorAPI in
+                                            Logger.log(message: errorAPI.message.localized(), event: .error)
+        })
+    }
     
     // Test API `registration.verify`
-//    func testVerify(phone: String, code: String) {
-//        let isDebugMode: Bool   =   appBuildConfig == AppBuildConfig.debug
-//
-//        RestAPIManager.instance.verify(phone:           phone,
-//                                       code:            code,
-//                                       isDebugMode:     isDebugMode,
-//                                       completion:      { (result, errorAPI) in
-//                                        guard errorAPI == nil else {
-//                                            Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-//                                            return
-//                                        }
-//
-//                                        Logger.log(message: "Response: \n\t\(result!.status)", event: .debug)
-//
-//                                        self.testSetUser(nickName: "testUser3", phone: phone)
-//        })
-//    }
+    func testVerify(phone: String, code: String) {
+        RestAPIManager.instance.verify(phone:               phone,
+                                       code:                code,
+                                       isDebugMode:         true,
+                                       responseHandling:    { response in
+                                        Logger.log(message: "Response: \n\t\(response.status)", event: .debug)
+                                        self.testSetUser(nickName: "testuser8", phone: phone)
+        },
+                                       errorHandling:       { errorAPI in
+                                        Logger.log(message: errorAPI.message.localized(), event: .error)
+        })
+    }
     
     // Test API `registration.setUsername`
-//    private func testSetUser(nickName: String, phone: String) {
-//        let isDebugMode: Bool   =   appBuildConfig == AppBuildConfig.debug
-//
-//        RestAPIManager.instance.setUser(name:           nickName,
-//                                        phone:          phone,
-//                                        isDebugMode:    isDebugMode,
-//                                        completion:     { (result, errorAPI) in
-//                                            guard errorAPI == nil else {
-//                                                Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-//                                                return
-//                                            }
-//
-//                                            Logger.log(message: "Response: \n\t\(result!.status)", event: .debug)
-//
-//                                            self.testToBlockChain(nickName: nickName)
-//        })
-//    }
+    func testSetUser(nickName: String, phone: String) {
+        RestAPIManager.instance.setUser(nickName:           nickName,
+                                        phone:              phone,
+                                        responseHandling:   { response in
+                                            Logger.log(message: "Response: \n\t\(response.status)", event: .debug)
+                                            self.testToBlockChain(nickName: nickName, phone: phone)
+        },
+                                        errorHandling:      { errorAPI in
+                                            Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+        })
+    }
     
     // Test API `registration.resendSmsCode`
-//    func resendSmsCode(phone: String) {
-//        let isDebugMode: Bool   =   appBuildConfig == AppBuildConfig.debug
-//
-//        RestAPIManager.instance.resendSmsCode(phone:        phone,
-//                                              isDebugMode:  isDebugMode,
-//                                              completion:   { (result, errorAPI) in
-//                                                guard errorAPI == nil else {
-//                                                    Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-//                                                    return
-//                                                }
-//
-//                                                Logger.log(message: "Response: \n\t\(result!.code)", event: .debug)
-//        })
-//    }
+    func resendSmsCode(phone: String) {
+        RestAPIManager.instance.resendSmsCode(phone:                phone,
+                                              isDebugMode:          true,
+                                              responseHandling:     { response in
+                                                Logger.log(message: "Response: \n\t\(response.code)", event: .debug)
+                                                self.testVerify(phone: phone, code: "9999")
+        },
+                                              errorHandling:        { errorAPI in
+                                                Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+        })
+    }
     
     // Test API `registration.toBlockChain`
-//    func testToBlockChain(nickName: String) {
-//        RestAPIManager.instance.toBlockChain(nickName:      nickName,
-//                                             completion:    { (result, errorAPI) in
-//                                                guard errorAPI == nil else {
-//                                                    Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
-//                                                    return
-//                                                }
-//                                                
-//                                                Logger.log(message: "Response: \n\t\(result.description)", event: .debug)
-//        })
-//    }
+    func testToBlockChain(nickName: String, phone: String) {
+        RestAPIManager.instance.toBlockChain(nickName:      nickName,
+                                             phone:         phone,
+                                             responseHandling:   { response in
+                                                Logger.log(message: "Response: \n\t\(response)", event: .debug)
+        },
+                                             errorHandling:      { errorAPI in
+                                                Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+        })
+    }
 }

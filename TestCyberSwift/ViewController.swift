@@ -88,12 +88,12 @@ class ViewController: UIViewController {
         
         // EOS
         /// Contract `gls.social` action `updatemeta`
-        EOSService().testUpdatemeta()
+//        EOSService().testUpdatemeta()
 
 
         /// Contract `gls.publish` action `createmssg`
 //        EOSService().testCreatePostMessage()
-
+//        EOSService().testCreateCommentMessage(parentPermlink: "title2-2019-06-07t04-49-04", tags: ["#jfks", "#sfndkl"])
         
         /// Contract `gls.publish` action `updatemssg`
 //        EOSService().testUpdatePostMessage()
@@ -137,10 +137,10 @@ class ViewController: UIViewController {
         
         // REGISTRATION-SERVICE
 //        RegistrationService().testGetState(phone: "+79602806441")
-//        RegistrationService().testFirstStep(phone: "+79602806441")
-//        RegistrationService().resendSmsCode(phone: "+79602806440")
-//        RegistrationService().testVerify(phone: "+79602806440", code: "6974")
-        
+        RegistrationService().testFirstStep(phone: "+79602806446")
+//        RegistrationService().resendSmsCode(phone: "+79602806443")
+//        RegistrationService().testVerify(phone: "+79602806443", code: "9999")
+//        RegistrationService().testSetUser(nickName: "testuser3", phone: "+79602806443")
         
         
 //        FacadeService().testGetPushHistoryFresh()

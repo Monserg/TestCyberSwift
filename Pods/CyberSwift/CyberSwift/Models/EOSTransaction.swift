@@ -69,11 +69,12 @@ public class EOSTransaction: ChainTransaction {
         let bodymssg: String
         let languagemssg: String
         let tags: [Tags]?
-        let jsonmetadata: String?
+        let jsonmetadata: String
+        let curators_prcnt: UInt16
         
         
         // MARK: - Initialization
-        init(authorValue: String, parentPermlink: String? = nil, beneficiariesValues: [Beneficiary?] = [], tokenpropValue: Int16 = 0, vestpaymentValue: UInt64 = 1, headermssgValue: String = "test", bodymssgValue: String = "test", languagemssgValue: String = "ru", tagsValues: [Tags]? = [Tags()], jsonmetadataValue: String? = "") {
+        init(authorValue: String, parentPermlink: String? = nil, beneficiariesValues: [Beneficiary?] = [], tokenpropValue: Int16 = 0, vestpaymentValue: UInt64 = 1, headermssgValue: String = "test", bodymssgValue: String = "test", languagemssgValue: String = "ru", tagsValues: [Tags]? = [Tags()], jsonmetadataValue: String = "{\"embeds\": []}", curatorsPrcntValue: UInt16 = 0) {
             let prefixTitle         =   parentPermlink == nil ? headermssgValue : "Comment"
             let messagePermlink     =   String.permlinkWith(string: prefixTitle)
             
@@ -87,6 +88,7 @@ public class EOSTransaction: ChainTransaction {
             self.languagemssg       =   languagemssgValue
             self.tags               =   tagsValues
             self.jsonmetadata       =   jsonmetadataValue
+            self.curators_prcnt     =   curatorsPrcntValue
             
 /*
 //            self.parentprmlnk       =   parentprmlnkValue
@@ -289,6 +291,8 @@ public class EOSTransaction: ChainTransaction {
         let instagram: String?
         let telegram: String?
         let vk: String?
+        let whatsapp: String?
+        let wechat: String?
         let website: String?
         let first_name: String?
         let last_name: String?
@@ -323,6 +327,8 @@ public class EOSTransaction: ChainTransaction {
             self.instagram          =   json["instagram"] ?? nil
             self.telegram           =   json["telegram"] ?? nil
             self.vk                 =   json["vk"] ?? nil
+            self.whatsapp           =   json["whatsapp"] ?? nil
+            self.wechat             =   json["wechat"] ?? nil
             self.website            =   json["website"] ?? nil
             self.first_name         =   json["first_name"] ?? nil
             self.last_name          =   json["last_name"] ?? nil
