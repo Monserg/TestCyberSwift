@@ -13,24 +13,24 @@ struct FacadeService {
     /// API `auth.authorize`
     //  1. run after get `sign` websocket secret key
     func testAuthorize() {
-        if KeychainManager.deleteData(forUserNickName: Config.currentUserNickNameKey, withKey: Config.currentUserNickNameKey) {
+        if KeychainManager.deleteData(forUserNickName: Config.currentUserNameKey, withKey: Config.currentUserNameKey) {
             if KeychainManager.deleteData(forUserNickName: Config.currentUserPublicActiveKey, withKey: Config.currentUserPublicActiveKey) {
                 Logger.log(message: "Success!!!", event: .debug)
             }
         }
         
-        let userNickNameValue   =   Config.testUserAccount.nickName
-        let userActiveKeyValue  =   Config.testUserAccount.activeKey
+        let userIDValue         =   Config.currentUser.id
+        let userActiveKeyValue  =   Config.currentUser.activeKey
         
-        RestAPIManager.instance.authorize(userNickName: userNickNameValue,
-                                          userActiveKey: userActiveKeyValue,
-                                          responseHandling: { response in
+        RestAPIManager.instance.authorize(userID:               userIDValue ?? Config.testUserAccount.id,
+                                          userActiveKey:        userActiveKeyValue ?? Config.testUserAccount.activeKey,
+                                          responseHandling:     { response in
                                             Logger.log(message: "API `auth.authorize` permission: \(response.permission)", event: .debug)
                                             
                                             /// Test API `push.historyFresh`
                                             // self.testGetPushHistoryFresh()
         },
-                                          errorHandling: { errorAPI in
+                                          errorHandling:        { errorAPI in
                                             Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
         })
     }
@@ -38,7 +38,7 @@ struct FacadeService {
 
     /// Test API `content.getFeed`
     func testGetFeed() {
-        let userID: String                  =   Config.currentUser.nickName ?? Config.testUserAccount.nickName
+        let userID: String                  =   Config.currentUser.id ?? Config.testUserAccount.id
         let paginationSequenceKey: String?  =   nil //"58098388-437f-43f1-980c-8e363b5859a9|20"
         
         RestAPIManager.instance.loadFeed(typeMode:                  .community,
@@ -85,7 +85,7 @@ struct FacadeService {
     func testGetProfile() {
 //        let result = self.deleteAllKeys()
         
-        RestAPIManager.instance.getProfile(nickName:        Config.currentUser.nickName ?? "XXX",
+        RestAPIManager.instance.getProfile(userID:          Config.currentUser.id ?? "XXX",
                                            completion:      { (userProfile, errorAPI) in
                                             guard errorAPI == nil else {
                                                 Logger.log(message: errorAPI!.caseInfo.message.localized(), event: .error)
@@ -236,7 +236,7 @@ struct FacadeService {
     /// Test API `favorites.get`
     //  1. user only for current auth user
     func testGetFavorites() {
-        if Config.currentUser.nickName != nil {
+        if Config.currentUser.id != nil {
             RestAPIManager.instance.getFavorites(responseHandling:  { response in
                                                     Logger.log(message: "response: \n\t\(response)", event: .debug)
             },
@@ -250,7 +250,7 @@ struct FacadeService {
     /// Test API `favorites.add`
     //  1. user only for current auth user
     func testAddFavorites() {
-        if Config.currentUser.nickName != nil {
+        if Config.currentUser.id != nil {
             RestAPIManager.instance.addFavorites(permlink:          "oesowgfuzfif/kjbkbjbbjk",
                                                  responseHandling:  { response in
                                                     Logger.log(message: "response: \n\t\(response)", event: .debug)
@@ -265,7 +265,7 @@ struct FacadeService {
     /// Test API `favorites.remove`
     //  1. user only for current auth user
     func testRemoveFavorites() {
-        if Config.currentUser.nickName != nil {
+        if Config.currentUser.id != nil {
             RestAPIManager.instance.removeFavorites(permlink:           "oesowgfuzfif/kjbkbjbbjk",
                                                     responseHandling:   { response in
                                                         Logger.log(message: "response: \n\t\(response)", event: .debug)

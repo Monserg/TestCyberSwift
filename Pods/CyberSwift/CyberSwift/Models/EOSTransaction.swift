@@ -119,7 +119,7 @@ public class EOSTransaction: ChainTransaction {
         
         
         // MARK: - Initialization
-        init(authorValue: String = Config.testUserAccount.nickName, messagePermlink: String, parentPermlink: String? = nil, headermssgValue: String = "test", bodymssgValue: String = "test", languagemssgValue: String = "ru", tagsValues: [Tags] = [Tags()], jsonmetadataValue: String = "") {
+        init(authorValue: String = Config.testUserAccount.id, messagePermlink: String, parentPermlink: String? = nil, headermssgValue: String = "test", bodymssgValue: String = "test", languagemssgValue: String = "ru", tagsValues: [Tags] = [Tags()], jsonmetadataValue: String = "") {
             self.message_id     =   Mssgid(authorValue: authorValue, permlinkValue: messagePermlink)
             self.headermssg     =   headermssgValue
             self.bodymssg       =   bodymssgValue
@@ -137,7 +137,7 @@ public class EOSTransaction: ChainTransaction {
         
         
         // MARK: - Initialization
-        init(authorValue: String = Config.testUserAccount.nickName, messagePermlink: String) {
+        init(authorValue: String = Config.testUserAccount.id, messagePermlink: String) {
             self.message_id = Mssgid(authorValue: authorValue, permlinkValue: messagePermlink)
         }
     }
@@ -180,7 +180,7 @@ public class EOSTransaction: ChainTransaction {
         
         
         // MARK: - Initialization
-        init(voterValue: String, authorValue: String, permlinkValue: String, weightValue: Int16) {
+        init(voterValue: String, authorValue: String, permlinkValue: String, weightValue: Int16 = 0) {
             self.voter      =   NameWriterValue(name: voterValue)
             self.message_id =   Mssgid(authorValue: authorValue, permlinkValue: permlinkValue)
             self.weight     =   weightValue

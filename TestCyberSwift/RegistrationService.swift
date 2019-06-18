@@ -14,7 +14,7 @@ struct RegistrationService {
     func testGetState(phone: String) {
         let userNickName: String?   =   nil // Config.accountNickTest
         
-        RestAPIManager.instance.getState(nickName:          userNickName,
+        RestAPIManager.instance.getState(id:          userNickName,
                                          phone:             phone,
                                          responseHandling:  { state in
                                             Logger.log(message: "Response state: \n\t\(state)", event: .debug)
@@ -54,7 +54,7 @@ struct RegistrationService {
                                        isDebugMode:         true,
                                        responseHandling:    { response in
                                         Logger.log(message: "Response: \n\t\(response.status)", event: .debug)
-                                        self.testSetUser(nickName: "testuser8", phone: phone)
+                                        self.testSetUser(id: "testuserr1", phone: phone)
         },
                                        errorHandling:       { errorAPI in
                                         Logger.log(message: errorAPI.message.localized(), event: .error)
@@ -62,12 +62,12 @@ struct RegistrationService {
     }
     
     // Test API `registration.setUsername`
-    func testSetUser(nickName: String, phone: String) {
-        RestAPIManager.instance.setUser(nickName:           nickName,
+    func testSetUser(id: String, phone: String) {
+        RestAPIManager.instance.setUser(id:                 id,
                                         phone:              phone,
                                         responseHandling:   { response in
                                             Logger.log(message: "Response: \n\t\(response.status)", event: .debug)
-                                            self.testToBlockChain(nickName: nickName, phone: phone)
+                                            self.testToBlockChain(userID: id, userPhone: phone)
         },
                                         errorHandling:      { errorAPI in
                                             Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
@@ -88,13 +88,13 @@ struct RegistrationService {
     }
     
     // Test API `registration.toBlockChain`
-    func testToBlockChain(nickName: String, phone: String) {
-        RestAPIManager.instance.toBlockChain(nickName:      nickName,
-                                             phone:         phone,
-                                             responseHandling:   { response in
+    func testToBlockChain(userID: String, userPhone: String) {
+        RestAPIManager.instance.toBlockChain(id:                    userID,
+                                             phone:                 userPhone,
+                                             responseHandling:      { response in
                                                 Logger.log(message: "Response: \n\t\(response)", event: .debug)
         },
-                                             errorHandling:      { errorAPI in
+                                             errorHandling:         { errorAPI in
                                                 Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
         })
     }

@@ -104,7 +104,7 @@ class ViewController: UIViewController {
 
         
         /// Contract `gls.publish` action `upvote`
-//        EOSService().testMessage(voteActionType: .unvote)
+//        EOSService().testMessage(voteActionType: .downvote, author: "", permlink: "")
         
         
         
@@ -137,10 +137,10 @@ class ViewController: UIViewController {
         
         // REGISTRATION-SERVICE
 //        RegistrationService().testGetState(phone: "+79602806441")
-        RegistrationService().testFirstStep(phone: "+79602806446")
+//        RegistrationService().testFirstStep(phone: "+79602806441")
 //        RegistrationService().resendSmsCode(phone: "+79602806443")
 //        RegistrationService().testVerify(phone: "+79602806443", code: "9999")
-//        RegistrationService().testSetUser(nickName: "testuser3", phone: "+79602806443")
+//        RegistrationService().testSetUser(id: "testuserr1", phone: "+79602806441")
         
         
 //        FacadeService().testGetPushHistoryFresh()
@@ -151,7 +151,7 @@ class ViewController: UIViewController {
 // MARK: - TEST FUNC
 extension ViewController {
     func deleteAllKeys() -> Bool {
-        guard   KeychainManager.deleteData(forUserNickName: Config.currentUserNickNameKey, withKey: Config.currentUserNickNameKey),
+        guard   KeychainManager.deleteData(forUserNickName: Config.currentUserNameKey, withKey: Config.currentUserNameKey),
                 KeychainManager.deleteData(forUserNickName: Config.currentUserPublicActiveKey, withKey: Config.currentUserPublicActiveKey) else { return false }
         
         return true

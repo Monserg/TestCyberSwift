@@ -30,13 +30,13 @@ extension Reactive where Base: EOSManager {
     }
     
     static func pushAuthorized(account: TransactionAccountType, name: String, data: DataWriterValue, expiration: Date = Date.defaultTransactionExpiry(expireSeconds: Config.expireSeconds)) -> Single<ChainResponse<TransactionCommitted>> {
-        guard let userNickName = Config.currentUser.nickName, let userActiveKey = Config.currentUser.activeKey else {
+        guard let userID = Config.currentUser.id, let userActiveKey = Config.currentUser.activeKey else {
             return .error(ErrorAPI.blockchain(message: "Unauthorized"))
         }
         
         // Prepare action
         let transactionAuthorizationAbi = TransactionAuthorizationAbi(
-            actor:        AccountNameWriterValue(name:    userNickName),
+            actor:        AccountNameWriterValue(name:    userID),
             permission:   AccountNameWriterValue(name:    "active"))
         
         let action = ActionAbi(
@@ -63,17 +63,17 @@ extension Reactive where Base: EOSManager {
 //    }
     
     static func vote(voteType: VoteActionType, author: String, permlink: String, weight: Int16) -> Completable {
-        guard let userNickName = Config.currentUser.nickName, let _ = Config.currentUser.activeKey else {
+        guard let userID = Config.currentUser.id, let _ = Config.currentUser.activeKey else {
             return .error(ErrorAPI.blockchain(message: "Unauthorized"))
         }
         
         // Prepare data
         let voteArgs: Encodable = (voteType == .unvote) ?
-            EOSTransaction.UnvoteArgs.init(voterValue:          userNickName,
+            EOSTransaction.UnvoteArgs.init(voterValue:          userID,
                                            authorValue:         author,
                                            permlinkValue:       permlink)
             :
-            EOSTransaction.UpvoteArgs.init(voterValue:          userNickName,
+            EOSTransaction.UpvoteArgs.init(voterValue:          userID,
                                            authorValue:         author,
                                            permlinkValue:       permlink,
                                            weightValue:         weight)
@@ -87,7 +87,7 @@ extension Reactive where Base: EOSManager {
                 }
                 
                 // Update user profile reputation
-                let changereputArgs = EOSTransaction.UserProfileChangereputArgs(voterValue: userNickName, authorValue: author, rsharesValue: voteType == .upvote ? 1 : -1)
+                let changereputArgs = EOSTransaction.UserProfileChangereputArgs(voterValue: userID, authorValue: author, rsharesValue: voteType == .upvote ? 1 : -1)
                 return EOSManager.rx.updateUserProfile(changereputArgs: changereputArgs)
             }
             .flatMapToCompletable()
