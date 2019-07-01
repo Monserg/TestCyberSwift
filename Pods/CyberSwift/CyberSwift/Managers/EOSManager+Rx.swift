@@ -58,28 +58,29 @@ extension Reactive where Base: EOSManager {
     
     //  MARK: - Contract `gls.publish`
     
-//    static func createNewAccount(nickName: String) -> Single<ChainResponse<TransactionCommitted>> {
-//
-//    }
+    //    static func createNewAccount(nickName: String) -> Single<ChainResponse<TransactionCommitted>> {
+    //
+    //    }
     
-    static func vote(voteType: VoteActionType, author: String, permlink: String, weight: Int16) -> Completable {
+    static func vote(voteType:  VoteActionType,
+                     author:    String,
+                     permlink:  String,
+                     weight:    Int16) -> Completable {
         guard let userID = Config.currentUser.id, let _ = Config.currentUser.activeKey else {
             return .error(ErrorAPI.blockchain(message: "Unauthorized"))
         }
         
         // Prepare data
-        let voteArgs: Encodable = (voteType == .unvote) ?
-            EOSTransaction.UnvoteArgs.init(voterValue:          userID,
-                                           authorValue:         author,
-                                           permlinkValue:       permlink)
-            :
-            EOSTransaction.UpvoteArgs.init(voterValue:          userID,
-                                           authorValue:         author,
-                                           permlinkValue:       permlink,
-                                           weightValue:         weight)
+        let voteArgs: Encodable = (voteType == .unvote) ?   EOSTransaction.UnvoteArgs.init(voterValue:          userID,
+                                                                                           authorValue:         author,
+                                                                                           permlinkValue:       permlink) :
+                                                            EOSTransaction.UpvoteArgs.init(voterValue:          userID,
+                                                                                           authorValue:         author,
+                                                                                           permlinkValue:       permlink,
+                                                                                           weightValue:         weight)
         
         let voteArgsData = DataWriterValue(hex: voteArgs.toHex())
-
+        
         return pushAuthorized(account: .glsPublish, name: voteType.rawValue, data: voteArgsData)
             .flatMap {response -> Single<ChainResponse<TransactionCommitted>> in
                 if voteType == .unvote {

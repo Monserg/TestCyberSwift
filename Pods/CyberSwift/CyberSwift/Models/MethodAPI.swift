@@ -99,15 +99,21 @@ public indirect enum MethodAPIType {
     
     //  Log in
     case authorize(userID: String, activeKey: String)
-    
+
     //  Get the secret authorization to sign
     case generateSecret
+
+    // Subscribe to push notifications
+    case notifyPushOn(fcmToken: String)
+
+    // Unsubscribe of push notifications
+    case notifyPushOff(fcmToken: String)
 
 //    //  Receiving the number of unread notifications
 //    case getPushHistory(nickName: String)
 
     //  Receiving the number of unread notifications according to user settings
-    case getPushHistoryFresh(profile: String)
+    case getPushHistoryFresh
     
     //  Receive user's notifications
     case getOnlineNotifyHistory(fromId: String?, paginationLimit: Int8, markAsViewed: Bool, freshOnly: Bool)
@@ -156,7 +162,7 @@ public indirect enum MethodAPIType {
     
     //  The third step of registration, account verification
     case setUser(id: String, phone: String)
-    
+
     //  Re-send of the confirmation code (for the smsToUser strategy)
     case resendSmsCode(phone: String, isDebugMode: Bool)
     
@@ -242,7 +248,7 @@ public indirect enum MethodAPIType {
                      methodGroup:       MethodAPIGroup.auth.rawValue,
                      methodName:        "authorize",
                      parameters:        ["user": userIDValue, "secret": Config.webSocketSecretKey, "sign": EOSManager.signWebSocketSecretKey(userActiveKey: activeKeyValue) ?? "Cyberway"])
-            
+
         //  Template { "id": 7, "jsonrpc": "2.0", "method": "auth.generateSecret", "params": { "": "" }}
         case .generateSecret:
             return  (methodAPIType:     self,
@@ -250,12 +256,32 @@ public indirect enum MethodAPIType {
                      methodName:        "generateSecret",
                      parameters:        ["": ""])
 
-        //  Template { "id": 8, "jsonrpc": "2.0", "method": "push.historyFresh", "params": { "": "" }}
-        case .getPushHistoryFresh(let profileValue):
+        //  Template { "id": 71, "jsonrpc": "2.0", "method": "push.notifyOn", "params": { "key": <fcm_token>, "profile": <userNickName-deviceUDID> }}
+        case .notifyPushOn(let fcmTokenValue):
+            return  (methodAPIType:     self,
+                     methodGroup:       MethodAPIGroup.push.rawValue,
+                     methodName:        "notifyOn",
+                     parameters:        [
+                                            "key":      fcmTokenValue,
+                                            "profile":  String(format: "%@-%@", Config.currentUser.id!, Config.currentDeviceType)
+                                        ])
+            
+        //  Template { "id": 72, "jsonrpc": "2.0", "method": "push.notifyOff", "params": { "key": <fcm_token>, "profile": <userNickName-deviceUDID> }}
+        case .notifyPushOff(let fcmTokenValue):
+            return  (methodAPIType:     self,
+                     methodGroup:       MethodAPIGroup.push.rawValue,
+                     methodName:        "notifyOff",
+                     parameters:        [
+                                            "key":      fcmTokenValue,
+                                            "profile":  String(format: "%@-%@", Config.currentUser.id!, Config.currentDeviceType)
+                                        ])
+            
+        //  Template { "id": 8, "jsonrpc": "2.0", "method": "push.historyFresh", "params": { "profile": <userNickName-deviceUDID> }}
+        case .getPushHistoryFresh:
             return  (methodAPIType:     self,
                      methodGroup:       MethodAPIGroup.push.rawValue,
                      methodName:        "historyFresh",
-                     parameters:        ["profile": profileValue])
+                     parameters:        ["profile": String(format: "%@-%@", Config.currentUser.id!, Config.currentDeviceType)])
             
         //  Template { "id": 9, "jsonrpc": "2.0", "method": "onlineNotify.history", "params": { "freshOnly": true, "fromId": "3123", markAsViewed}}
         case .getOnlineNotifyHistory(let fromId, _, let markAsViewed, let freshOnly):
@@ -290,7 +316,7 @@ public indirect enum MethodAPIType {
                      methodGroup:       MethodAPIGroup.options.rawValue,
                      methodName:        "get",
                      parameters:        ["profile": String(format: "%@-%@", Config.currentUser.id!, Config.currentDeviceType)])
-            
+
         //  Template { "id": 12, "jsonrpc": "2.0", "method": "options.set", "params": { "profile": <userNickName-deviceUDID>, "basic": { "language": "ru", "nsfwContent": "Always alert" }}}
         case .setBasicOptions(let nsfw, let language):
             return  (methodAPIType:     self,
@@ -304,7 +330,7 @@ public indirect enum MethodAPIType {
         //  Template { "id": 13, "jsonrpc": "2.0", "method": "options.set", "params": { "profile": <userNickName-deviceUDID>, "push": { "lang": <languageValue>, "show": { "vote": <voteValue>, "flag": <flagValue>, "reply": <replyValue>, "transfer": <transferValue>, "subscribe": <subscribeValue>, "unsubscribe": <unsibscribeValue>, "mention": <mentionValue>, "repost": <repostValue>,  "message": <messageValue>, "witnessVote": <witnessVoteValue>, "witnessCancelVote": <witnessCancelVoteValue>, "reward": <rewardValue>, "curatorReward": <curatorRewardValue> }}}
         case .setNotice(let options, let type):
             var parameters: [String: String] = [ "profile":  String(format: "%@-%@", Config.currentUser.id!, Config.currentDeviceType) ]
-            
+
             if type == .push {
                 parameters["push"]      =   String(format: "{\"lang\": \"%@\", \"show\": {%@}}", "ru", options.getNoticeOptionsValues())
             }
@@ -359,7 +385,7 @@ public indirect enum MethodAPIType {
         //  Template { "id": 1, "jsonrpc": "2.0", "method": "registration.getState", "params": { "phone": "+70000000000" }}
         case .getState(let idValue, let phoneValue):
             var parameters = [String: String]()
-                
+            
             if idValue != nil {
                 parameters["user"] = idValue!
             }

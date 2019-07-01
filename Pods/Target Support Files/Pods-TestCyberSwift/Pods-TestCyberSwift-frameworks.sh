@@ -168,6 +168,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GoloCrypto/GoloCrypto.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework"
@@ -176,6 +177,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftTheme/SwiftTheme.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/eosswift/eosswift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework"
 fi
@@ -187,6 +189,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GoloCrypto/GoloCrypto.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework"
@@ -195,6 +198,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftTheme/SwiftTheme.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/eosswift/eosswift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework"
 fi
@@ -206,6 +210,7 @@ if [[ "$CONFIGURATION" == "Development" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GoloCrypto/GoloCrypto.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework"
@@ -214,6 +219,7 @@ if [[ "$CONFIGURATION" == "Development" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftTheme/SwiftTheme.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/eosswift/eosswift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework"
 fi

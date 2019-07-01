@@ -128,8 +128,8 @@ struct EOSService {
                                             let json        =   messageID.jsonValue as? [String: AnyJSONType] {
                                             Logger.log(message: "json = \(json)", event: .debug)
                                             
-                                            // Test action `createmssg`, create new comment
                                             /*
+                                            // Test action `createmssg`, create new comment
                                             if let permlinkData = json["permlink"], let permlinkValue = permlinkData.jsonValue as? String {
                                                 Logger.log(message: "permlinkValue = \(permlinkValue), testTags = \(testTags!)", event: .debug)
                                                 self.testCreateCommentMessage(parentPermlink: permlinkValue, tags: testTags!)
@@ -138,9 +138,14 @@ struct EOSService {
                                             
                                             
                                             if let authorData = json["author"], let authorValue = authorData.jsonValue as? String, let permlinkData = json["permlink"], let permlinkValue = permlinkData.jsonValue as? String {
+                                                // Delete message
+//                                                self.testDeletePostMessage(postAuthor: authorValue, postPermlink: permlinkValue)
+                                                
+                                                //
                                                 // Test action `upvote`
                                                 self.testMessage(voteActionType: .upvote, author: authorValue, permlink: permlinkValue)
-                                             
+                                                //
+                                                
                                                 // Test action `reblog`
                                                 /*
                                                 self.testMessageReblog(author:      authorValue,
@@ -150,6 +155,7 @@ struct EOSService {
                                                                        body:        "Reblog body message #1")
                                                 */
                                             }
+ 
                                         }
         },
                                        errorHandling:       { (errorAPI) in
@@ -179,7 +185,7 @@ struct EOSService {
     
     /// Action `updatemssg`
     func testUpdatePostMessage() {
-        let messageAuthor: String           =   Config.testUserAccount.id
+        let messageAuthor: String           =   Config.testUser.id ?? "CyberSwift"
         let messagePermlink: String         =   "title2-2019-05-23t12-30-55"
         let messageParentPermlink: String?  =   nil
         let messageBody: String             =   "Updating body message for current \(messageParentPermlink == nil ? "Post" : "Comment")..."
@@ -198,9 +204,9 @@ struct EOSService {
     
     
     /// Action `deletemssg`
-    func testDeletePostMessage() {
-        let postAuthor: String      =   Config.testUserAccount.id
-        let postPermlink: String    =   "title2-2019-05-23t12-30-55"
+    func testDeletePostMessage(postAuthor: String, postPermlink: String) {
+//        let postAuthor: String      =   Config.testUserAccount.id
+//        let postPermlink: String    =   "title2-2019-05-23t12-30-55"
         
         RestAPIManager.instance.deleteMessage(author:               postAuthor,
                                               permlink:             postPermlink,
@@ -281,7 +287,7 @@ struct EOSService {
 
     /// Action `votewitness` (2)
     func testVotewitness() {
-        let voter: String       =   Config.testUserAccount.id
+        let voter: String       =   Config.testUser.id ?? "CyberSwift"
         let witness: String     =   Config.currentUser.id!
         
         RestAPIManager.instance.vote(witness:               witness,
@@ -296,7 +302,7 @@ struct EOSService {
     
     /// Action `unvotewitn` (3)
     func testUnvotewitness() {
-        let voter: String       =   Config.testUserAccount.id
+        let voter: String       =   Config.testUser.id ?? "CyberSwift"
         let witness: String     =   Config.currentUser.id!
         
         RestAPIManager.instance.unvote(witness:             witness,

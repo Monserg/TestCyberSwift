@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import eosswift
+import SwiftyJSON
 
 extension PrimitiveSequenceType where Self.TraitType == RxSwift.SingleTrait {
     public func flatMapToCompletable() -> Completable {
@@ -25,7 +26,23 @@ extension PrimitiveSequenceType where Self.TraitType == RxSwift.SingleTrait {
 extension PrimitiveSequenceType where Self.TraitType == RxSwift.SingleTrait, Self.ElementType == ChainResponse<TransactionCommitted> {
     func mapCachedError() -> Single<ChainResponse<TransactionCommitted>> {
         return map {response in
-            if !response.success {throw ErrorAPI.blockchain(message: response.errorBody!)}
+            if !response.success {
+                var message = response.errorBody!.replacingOccurrences(of: "Optional(", with: "")
+                
+                if message.last == ")" {
+                    message = String(message.dropLast())
+                }
+                
+                message = message.replacingOccurrences(of: "\\'", with: "'")
+                
+                Logger.log(message: message, event: .error)
+                
+                let json = try JSON(data: message.data(using: .utf8)!, options: .allowFragments)
+                
+                let result = try JSONDecoder().decode(BCResponseAPIErrorResult.self, from: json.stringValue.data(using: .utf8)!)
+                
+                throw ErrorAPI.blockchain(message: result.error.details.first?.message ?? json.stringValue)
+            }
             return response
         }
     }

@@ -13,6 +13,10 @@ extension String {
         return String(prefix(1))
     }
 
+    public func addFirstZero() -> String {
+        return self.count == 1 ? "0" + self : self
+    }
+
     public var uppercaseFirst: String {
         return first.uppercased() + String(dropFirst())
     }
@@ -46,8 +50,13 @@ extension String {
     }
     
     public static func permlinkWith(string: String) -> String {
-        return (string + "-" + Date().convert(toStringFormat: .expirationDateType)).lowercased()
+        return (string.applyingTransform(.toLowercaseASCIINoSpaces, reverse: false)! + "-" + Date().convert(toStringFormat: .expirationDateType)).lowercased()
             .replacingOccurrences(of: " ", with: "-")
             .replacingOccurrences(of: ":", with: "-")
     }
+}
+
+extension StringTransform {
+    static let toLowercaseASCIINoSpaces =
+        StringTransform(rawValue: "Any-Latin; Latin-ASCII; Lower; [:Separator:] Remove; [:^Letter:] Remove")
 }

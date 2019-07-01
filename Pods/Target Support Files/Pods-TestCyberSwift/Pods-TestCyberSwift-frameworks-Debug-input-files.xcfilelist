@@ -6,6 +6,7 @@ ${BUILT_PRODUCTS_DIR}/CyberSwift/CyberSwift.framework
 ${BUILT_PRODUCTS_DIR}/GoloCrypto/GoloCrypto.framework
 ${BUILT_PRODUCTS_DIR}/Localize-Swift/Localize_Swift.framework
 ${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework
+${BUILT_PRODUCTS_DIR}/PDFReader/PDFReader.framework
 ${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework
 ${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework
 ${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
@@ -14,5 +15,6 @@ ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework
 ${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework
 ${BUILT_PRODUCTS_DIR}/SwiftTheme/SwiftTheme.framework
+${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/eosswift/eosswift.framework
 ${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework

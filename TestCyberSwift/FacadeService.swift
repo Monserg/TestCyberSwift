@@ -19,26 +19,27 @@ struct FacadeService {
             }
         }
         
-        let userIDValue         =   Config.currentUser.id
-        let userActiveKeyValue  =   Config.currentUser.activeKey
-        
-        RestAPIManager.instance.authorize(userID:               userIDValue ?? Config.testUserAccount.id,
-                                          userActiveKey:        userActiveKeyValue ?? Config.testUserAccount.activeKey,
-                                          responseHandling:     { response in
-                                            Logger.log(message: "API `auth.authorize` permission: \(response.permission)", event: .debug)
-                                            
-                                            /// Test API `push.historyFresh`
-                                            // self.testGetPushHistoryFresh()
-        },
-                                          errorHandling:        { errorAPI in
-                                            Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
-        })
+        Broadcast.instance.generateNewTestUser { success in
+            if success {
+                RestAPIManager.instance.authorize(userID:               Config.testUser.id ?? "CyberSwift",
+                                                  userActiveKey:        Config.testUser.activeKey ?? "CyberSwift",
+                                                  responseHandling:     { response in
+                                                    Logger.log(message: "API `auth.authorize` permission: \(response.permission)", event: .debug)
+                                                    
+                                                    /// Test API `push.historyFresh`
+                                                    // self.testGetPushHistoryFresh()
+                },
+                                                  errorHandling:        { errorAPI in
+                                                    Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+                })
+            }
+        }
     }
     
 
     /// Test API `content.getFeed`
     func testGetFeed() {
-        let userID: String                  =   Config.currentUser.id ?? Config.testUserAccount.id
+        let userID: String                  =   Config.currentUser.id ?? Config.testUser.id ?? "CyberSwift"
         let paginationSequenceKey: String?  =   nil //"58098388-437f-43f1-980c-8e363b5859a9|20"
         
         RestAPIManager.instance.loadFeed(typeMode:                  .community,
@@ -274,5 +275,20 @@ struct FacadeService {
                                                         Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
             })
         }
+    }
+    
+    
+    /// Test API `push.notifyOff`
+    //  1. user only for current auth user
+    func testPushNotifyOff() {
+//        if Config.currentUser.id != nil {
+//            RestAPIManager.instance.pushNotifyOff(fcmToken:             "f-6-jlxtS24:APA91bG0LhMV99uMjZSmOikvPg0EW8Yl4ryQ7Q5GEtC_QWtdhuTIUaqx6LGAfjyfNeFJcc1u2Hi20-eg-FihgKpJVvOQJLzIQvHIhR1ldVzYdLBbMl9MXRAx13DQPSKq6U-aPQEIBz6h",
+//                                                    responseHandling:   { response in
+//                                                        Logger.log(message: "response: \n\t\(response)", event: .debug)
+//            },
+//                                                    errorHandling:      { errorAPI in
+//                                                        Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
+//            })
+//        }
     }
 }

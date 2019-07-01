@@ -8,8 +8,13 @@
 
 import UIKit
 import CyberSwift
+import PDFReader
 
 class ViewController: UIViewController {
+    // MARK: - Properties
+    var pdfViewController: PDFViewController?
+    
+    
     // MARK: - IBOutlets
     @IBOutlet weak var testFlagImageView: UIImageView! {
         didSet {
@@ -92,7 +97,7 @@ class ViewController: UIViewController {
 
 
         /// Contract `gls.publish` action `createmssg`
-//        EOSService().testCreatePostMessage()
+        EOSService().testCreatePostMessage()
 //        EOSService().testCreateCommentMessage(parentPermlink: "title2-2019-06-07t04-49-04", tags: ["#jfks", "#sfndkl"])
         
         /// Contract `gls.publish` action `updatemssg`
@@ -144,12 +149,55 @@ class ViewController: UIViewController {
         
         
 //        FacadeService().testGetPushHistoryFresh()
+        
+        
+        // Create PDF file
+//        KeychainManager.createPDFFile(id: "1111", name: "XXX", memo: "SDFFs", owner: "SDFBDBDBDBSS", active: "sdfldflf", posting: "xcnvm,n skdjf ksjdkf jsdkljfklds")
+//
+//        // Preview PDF file
+//        if let pdfDocument = KeychainManager.loadPDFDocument() {
+//            self.displayPDF(document: pdfDocument)
+//        }
+        
+        
+//        FacadeService().testPushNotifyOff()
     }
 }
 
 
 // MARK: - TEST FUNC
 extension ViewController {
+    func displayPDF(document: PDFDocument) {
+        let closeButton = UIBarButtonItem(title: "Close".localized(), style: .done, target: self, action:  #selector(myCancelFunc(sender:)))
+        /// Provide your button to createNew using the backButton parameter.  The PDFViewController will then use your button instead of the default backbutton.
+        self.pdfViewController = PDFViewController.createNew(with: document, title: "User keys info", actionStyle: .activitySheet, backButton: closeButton)
+        self.pdfViewController?.backgroundColor = .white
+        self.navigationController?.pushViewController(self.pdfViewController ?? UIViewController(), animated: true)
+    }
+    
+    @objc func myCancelFunc(sender: UIBarButtonItem) {
+        self.deletePDF()
+        self.pdfViewController?.navigationController?.popViewController(animated: true)
+    }
+    
+    func deletePDF() {
+        let documentsDirectory  =   NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let filePath            =   (documentsDirectory as NSString).appendingPathComponent("userKeys.pdf") as String
+
+        do {
+            try FileManager.default.removeItem(atPath: filePath)
+            
+            if let pdfDocument = KeychainManager.loadPDFDocument() {
+                Logger.log(message: pdfDocument.fileName, event: .debug)
+            } else {
+                Logger.log(message: "PDF-file deleted!!!", event: .severe)
+            }
+        } catch {
+            Logger.log(message: error.localizedDescription, event: .error)
+        }
+        
+    }
+    
     func deleteAllKeys() -> Bool {
         guard   KeychainManager.deleteData(forUserNickName: Config.currentUserNameKey, withKey: Config.currentUserNameKey),
                 KeychainManager.deleteData(forUserNickName: Config.currentUserPublicActiveKey, withKey: Config.currentUserPublicActiveKey) else { return false }

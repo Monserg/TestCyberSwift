@@ -15,6 +15,10 @@ var webSocket = WebSocket(url: URL(string: Config.gate_API_URL)!)
 
 public class WebSocketManager {
     // MARK: - Properties
+    public var isConnected: Bool {
+        return webSocket.isConnected
+    }
+    
     public static let instance = WebSocketManager()
     public let authorized = BehaviorRelay<Bool>(value: false)
 
@@ -38,20 +42,19 @@ public class WebSocketManager {
     public func connect() {
         Logger.log(message: "Success", event: .severe)
         
-        if webSocket.isConnected { return }
-        
         webSocket.connect()
         webSocket.delegate = WebSocketManager.instance
         
         WebSocketManager.instance.completionIsConnected = {
-            guard UserDefaults.standard.value(forKey: Config.isCurrentUserLoggedKey) != nil else {
+            if UserDefaults.standard.bool(forKey: Config.isCurrentUserLoggedKey) {
                 self.authorized.accept(true)
                 return
             }
             
-            guard (UserDefaults.standard.value(forKey: Config.isCurrentUserLoggedKey) as? Bool) == false else {
-                RestAPIManager.instance.authorize(userID:               Config.currentUser.id!,
-                                                  userActiveKey:        Config.currentUser.activeKey!,
+            if let userId = Config.currentUser.id,
+                let activeKey = Config.currentUser.activeKey {
+                RestAPIManager.instance.authorize(userID:               userId,
+                                                  userActiveKey:        activeKey,
                                                   responseHandling:     { response in
                                                     Logger.log(message: "WebSocketManager API `auth.authorize` permission: \(response.permission)", event: .debug)
                                                     self.authorized.accept(true)
@@ -60,18 +63,10 @@ public class WebSocketManager {
                                                     Logger.log(message: errorAPI.caseInfo.message.localized(), event: .error)
                                                     self.authorized.accept(false)
                 })
-                
                 return
             }
             
-            guard self.requestMethodsAPIStore.count > 0 else {
-                return
-            }
-            
-            
-//            for requestMethodAPIStore in self.requestMethodsAPIStore {
-//                self.sendMessage(requestMethodAPIStore.value)
-//            }
+            self.authorized.accept(false)
         }
     }
     
@@ -176,9 +171,15 @@ public class WebSocketManager {
             case .generateSecret:
                 return (responseAPI: try JSONDecoder().decode(ResponseAPIAuthGenerateSecretResult.self, from: jsonData), errorAPI: nil)
 
-            case .getPushHistoryFresh(_):
+            case .getPushHistoryFresh:
                 return (responseAPI: try JSONDecoder().decode(ResponseAPIPushHistoryFreshResult.self, from: jsonData), errorAPI: nil)
                 
+            case .notifyPushOn(_):
+                return (responseAPI: try JSONDecoder().decode(ResponseAPINotifyPushOnResult.self, from: jsonData), errorAPI: nil)
+
+            case .notifyPushOff(_):
+                return (responseAPI: try JSONDecoder().decode(ResponseAPINotifyPushOffResult.self, from: jsonData), errorAPI: nil)
+
             case .getOnlineNotifyHistory(_):
                 return (responseAPI: try JSONDecoder().decode(ResponseAPIOnlineNotifyHistoryResult.self, from: jsonData), errorAPI: nil)
                 
